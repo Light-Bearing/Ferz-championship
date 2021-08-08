@@ -104,33 +104,14 @@ public class MainRestController {
         }
 
     }
-    @PostMapping("/startTimer2")
-    public void startTime2(){
-        int hProgram = led.CreateProgram(96, 32, 1);
-        led.AddProgram(hProgram, 1, 0, 1);
-        led.AddImageTextArea(hProgram,1,1,0,0,96,32,0);
-        for (int i = 0; i < 10; i++) {
-            led.AddStaticTextToImageTextArea(hProgram,1,1,0,String.valueOf(i),"Arial",16,LED_COLOR_RES,1,0,0,0,2,1);
-            led.NetWorkSend("192.168.100.97",hProgram);
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
 
-        led.DeleteProgram(hProgram);
-
-    }
-
-    public Integer printTime(Long time){
+    public void printTime(Long time){
         int hProgram = led.CreateProgram(96, 32, 1);
         led.AddProgram(hProgram, 1, 0, 1);
         led.AddImageTextArea(hProgram,1,1,0,0,96,32,0);
         led.AddStaticTextToImageTextArea(hProgram,1,1,0,time.toString(),"Arial",16,LED_COLOR_RES,1,0,0,0,2,1);
         led.NetWorkSend("192.168.100.97",hProgram);
         led.DeleteProgram(hProgram);
-        return 0;
     }
 }
 
