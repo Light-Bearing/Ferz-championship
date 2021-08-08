@@ -3,12 +3,14 @@ package lb.ferzshow.model;
 import org.springframework.security.core.GrantedAuthority;
 
 public enum Role implements GrantedAuthority {
-    ROLE_USER,
-    ROLE_ADMIN;
+    ADMIN,
+    MAIN_JUDGE,
+    JUDGE;
+
+
 
     @Override
     public String getAuthority() {
-        return name();
-//        return "ROLE_" + name();
+        return "ROLE_" + name();
     }
 }

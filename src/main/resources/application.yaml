@@ -34,7 +34,7 @@ spring:
   logging:
     level:
       root: WARN
-      lb.ferzshow: DEBUG
+      lb.ferzshow.bootjava: DEBUG
 #      org.springframework.security.web.FilterChainProxy: DEBUG
 # Jackson Serialization Issue Resolver
 #  jackson:
