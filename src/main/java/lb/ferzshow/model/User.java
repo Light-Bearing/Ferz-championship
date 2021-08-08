@@ -1,7 +1,11 @@
 package lb.ferzshow.model;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import lb.ferzshow.security.JsonDeserializers;
 import lombok.*;
 import org.hibernate.annotations.BatchSize;
+import org.springframework.util.StringUtils;
 
 import javax.persistence.*;
 import javax.validation.constraints.Email;
@@ -11,12 +15,12 @@ import java.io.Serializable;
 import java.util.Set;
 
 @Entity
-@Table(name="users")
+@Table(name = "users")
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-@ToString(callSuper = true,exclude = {"password"})
+@ToString(callSuper = true, exclude = {"password"})
 public class User extends BaseEntity implements Serializable {
     @Column(name = "email", nullable = false, unique = true)
     @Email
@@ -34,6 +38,8 @@ public class User extends BaseEntity implements Serializable {
 
     @Column(name = "password")
     @Size(max = 256)
+    @JsonProperty(access = JsonProperty.Access.WRITE_ONLY)
+    @JsonDeserialize(using = JsonDeserializers.PasswordDeserializer.class)
     private String password;
 
     @Enumerated(EnumType.STRING)
@@ -42,4 +48,8 @@ public class User extends BaseEntity implements Serializable {
     @ElementCollection(fetch = FetchType.EAGER)
     @BatchSize(size = 20)
     private Set<Role> roles;
+
+    public void setEmail(String email) {
+        this.email = StringUtils.hasText(email) ? email.toLowerCase() : null;
+    }
 }

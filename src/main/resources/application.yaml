@@ -4,7 +4,7 @@ spring:
     open-in-view: false
     generate-ddl: true
   hibernate:
-    ddl-auto: create-drop
+    ddl-auto: auto
   properties:
     hibernate:
       format_sql: true
@@ -39,3 +39,6 @@ spring:
 # Jackson Serialization Issue Resolver
 #  jackson:
 #    visibility.field: any
+#    visibility.getter: none
+#    visibility.setter: none
+#    visibility.is-getter: none
