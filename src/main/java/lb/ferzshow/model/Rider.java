@@ -18,11 +18,11 @@ import java.io.Serializable;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class Rider extends BaseEntity implements Serializable {
-    @Column(name = "sourname", nullable = false)
+    @Column(name = "surname", nullable = false)
     @NotEmpty
     @Size(max = 128)
     @NotNull
-    private String sourname;
+    private String surname;
 
     @Column(name = "name", nullable = false)
     @NotEmpty

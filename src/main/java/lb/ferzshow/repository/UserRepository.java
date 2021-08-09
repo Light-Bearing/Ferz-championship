@@ -11,7 +11,6 @@ import java.util.List;
 import java.util.Optional;
 
 @Transactional(readOnly = true)
-
 public interface UserRepository extends JpaRepository<User, Integer> {
     @RestResource(rel = "by-email", path = "by-email")
     @Query("SELECT u FROM User u WHERE u.email = LOWER(:email)")

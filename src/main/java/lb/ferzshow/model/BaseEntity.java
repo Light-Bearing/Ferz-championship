@@ -23,6 +23,7 @@ public abstract class BaseEntity implements Persistable<Integer> {
         Assert.notNull(id, "Entity must have id");
         return id;
     }
+
     @JsonIgnore
     @Override
     public boolean isNew() {
