@@ -18,5 +18,5 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     Optional<User> findByEmailIgnoreCase(@Param("email") String email);
 
     @RestResource(rel = "by-lastname", path = "by-lastname")
-    List<User> findByLastNameContainingIgnoreCase(String lastName);
+    List<User> findBySurnameContainingIgnoreCase(String surname);
 }

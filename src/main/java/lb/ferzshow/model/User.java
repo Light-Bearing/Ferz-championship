@@ -28,13 +28,17 @@ public class User extends BaseEntity implements Serializable {
     @Size(max = 128)
     private String email;
 
-    @Column(name = "first_name")
+    @Column(name = "surname")
     @Size(max = 128)
-    private String firstName;
+    private String surname;
 
-    @Column(name = "last_name")
+    @Column(name = "name")
     @Size(max = 128)
-    private String lastName;
+    private String name;
+
+    @Column(name = "patronymic")
+    @Size(max = 128)
+    private String patronymic;
 
     @Column(name = "password")
     @Size(max = 256)
