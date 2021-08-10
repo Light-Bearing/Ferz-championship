@@ -12,6 +12,8 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.List;
 
+
+@CrossOrigin(origins= { "http://localhost:3000", "http://localhost:8080" })
 @RestController
 @RequestMapping("/riders")
 @RequiredArgsConstructor
@@ -25,7 +27,7 @@ public class RiderController {
     }
 
     @GetMapping("/{id}")
-    public Rider getRider(@PathVariable Integer id){
+    public Rider getRider(@PathVariable Long id){
         return riderRepository.findById(id).orElseThrow(RuntimeException::new);
     }
 
@@ -36,7 +38,7 @@ public class RiderController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity updateRider(@PathVariable Integer id, @RequestBody Rider rider){
+    public ResponseEntity updateRider(@PathVariable Long id, @RequestBody Rider rider){
         Rider currentRider = riderRepository.findById(id).orElseThrow(RuntimeException::new);
         currentRider.setName(rider.getName());
         currentRider.setSurname(rider.getSurname());
@@ -46,7 +48,7 @@ public class RiderController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity deleteRider(@PathVariable Integer id){
+    public ResponseEntity deleteRider(@PathVariable Long id){
         riderRepository.deleteById(id);
         return ResponseEntity.ok().build();
     }

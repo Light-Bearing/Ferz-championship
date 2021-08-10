@@ -14,12 +14,12 @@ import javax.persistence.*;
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PROTECTED)
-public abstract class BaseEntity implements Persistable<Integer> {
+public abstract class BaseEntity implements Persistable<Long> {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    protected Integer id;
+    protected Long id;
 
-    public int id() {
+    public long id() {
         Assert.notNull(id, "Entity must have id");
         return id;
     }
@@ -32,7 +32,7 @@ public abstract class BaseEntity implements Persistable<Integer> {
 
     @Override
     public int hashCode() {
-        return id == null ? 0 : id;
+        return id == null ? 0 : id.intValue();
     }
 
     @Override

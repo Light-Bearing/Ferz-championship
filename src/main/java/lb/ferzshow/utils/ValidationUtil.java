@@ -11,7 +11,7 @@ public class ValidationUtil {
         }
     }
 
-    public static void assureIdConsistent(BaseEntity entity, int id) {
+    public static void assureIdConsistent(BaseEntity entity, long id) {
         if (entity.isNew()) {
             entity.setId(id);
         } else if (entity.id() != id) {
