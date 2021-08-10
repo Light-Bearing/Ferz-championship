@@ -4,7 +4,7 @@ spring:
     open-in-view: false
     generate-ddl: true
   hibernate:
-    ddl-auto: auto
+    ddl-auto: create-drop
   properties:
     hibernate:
       format_sql: true
@@ -33,7 +33,7 @@ spring:
   #      roles: USER
   logging:
     level:
-      root: WARN
+      root: DEBUG
       lb.ferzshow.bootjava: DEBUG
 #      org.springframework.security.web.FilterChainProxy: DEBUG
 # Jackson Serialization Issue Resolver
@@ -42,3 +42,6 @@ spring:
 #    visibility.getter: none
 #    visibility.setter: none
 #    visibility.is-getter: none
+app:
+  jwtSecret: fmxChampinship
+  jwtExpiration: 86400
