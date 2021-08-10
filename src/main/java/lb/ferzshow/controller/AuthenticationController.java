@@ -10,6 +10,7 @@ import lb.ferzshow.model.User;
 import lb.ferzshow.repository.RoleRepository;
 import lb.ferzshow.repository.UserRepository;
 import lb.ferzshow.security.jwt.JwtProvider;
+import lb.ferzshow.security.services.UserPrinciple;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -23,6 +24,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.nio.file.attribute.UserPrincipal;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -49,8 +51,8 @@ public class AuthenticationController {
         SecurityContextHolder.getContext().setAuthentication(authentication);
 
         String jwt = jwtProvider.generateJwtToken(authentication);
-        UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-        return ResponseEntity.ok(new JwtResponse(jwt, userDetails.getUsername(), userDetails.getAuthorities()));
+        UserPrinciple userPrinciple = (UserPrinciple) authentication.getPrincipal();
+        return ResponseEntity.ok(new JwtResponse(jwt, userPrinciple.getUsername(),userPrinciple.getSurname(),userPrinciple.getName(), userPrinciple.getAuthorities()));
     }
 
     @PostMapping("/signup")

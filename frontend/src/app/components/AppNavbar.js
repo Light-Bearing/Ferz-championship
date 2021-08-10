@@ -15,6 +15,8 @@ class AppNavbar extends Component {
       showPM: false,
       showAdmin: false,
       username: undefined,
+      surname: undefined,
+      name: undefined,
       login: false
     };
   }
@@ -35,7 +37,9 @@ class AppNavbar extends Component {
         shomawinJudge: roles.includes("ROLE_MAIN_JUDGE") || roles.includes("ROLE_ADMIN"),
         showAdmin: roles.includes("ROLE_ADMIN"),
         login: true,
-        username: user.username
+        username: user.username,
+        surname: user.surname,
+        name: user.name
       });
     }
   }
@@ -69,7 +73,7 @@ class AppNavbar extends Component {
             <Nav className="ml-auto" navbar>
               <NavItem>
                   <NavbarText>
-                    Signed in as: <a href="/profile">{this.state.username}</a>
+                    Signed in as: <h3>{this.state.surname+" "+this.state.name}</h3><a href="/profile">{this.state.username}</a>
                   </NavbarText>
               </NavItem>
               <NavItem>

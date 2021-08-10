@@ -1,6 +1,6 @@
 import AppNavbar from './AppNavbar';
 import React, {Component} from 'react';
-import {Container} from 'reactstrap';
+import {Container, Input} from 'reactstrap';
 import BackendService from '../services/BackendService';
 import {Alert} from "react-bootstrap"
 
@@ -35,6 +35,7 @@ class UserPage extends Component {
                 <div style={{marginTop: "20px"}}>
                   <Alert variant="info">
                     <h2>{this.state.content}</h2>
+                    <Input type="number"></Input>
                   </Alert>
                 </div>
               ) : (

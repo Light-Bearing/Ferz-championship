@@ -28,7 +28,7 @@ public class TestRestAPIs {
     }
 
     @GetMapping("/api/test/main_judge")
-    @PreAuthorize("hasRole('MAIN_JUDGE')")
+    @PreAuthorize("hasRole('MAIN_JUDGE') or hasRole('ADMIN')")
     public String mainJudgeAccess() {
         return ">>> Main JUDGE Contents";
     }
