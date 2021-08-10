@@ -2,7 +2,6 @@ package lb.ferzshow.utils;
 
 import lb.ferzshow.error.IllegalRequestDataException;
 import lb.ferzshow.model.BaseEntity;
-import lb.ferzshow.model.User;
 
 public class ValidationUtil {
     public static void checkNew(BaseEntity entity) {

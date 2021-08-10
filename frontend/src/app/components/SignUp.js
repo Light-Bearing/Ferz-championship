@@ -1,12 +1,11 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import AppNavbar from './AppNavbar';
-import { Container } from 'reactstrap';
-import { Button, Form, FormGroup, Input, Label, Row, Col } from "reactstrap";
-import { Alert } from "react-bootstrap"
+import {Button, Col, Container, Form, FormGroup, Input, Label, Row} from 'reactstrap';
+import {Alert} from "react-bootstrap"
 
 import Authentication from '../services/AuthenticationService'
 
-const validEmailRegex = RegExp(/^(([^<>()\[\]\.,;:\s@\"]+(\.[^<>()\[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i);
+const validEmailRegex = RegExp(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);
 
 const validateForm = (errors) => {
   let valid = true;
@@ -21,9 +20,10 @@ class SignUp extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      firstname: "",
-      lastname: "",
-      username: "",
+      username:"",
+      surname: "",
+      name: "",
+      patronymic: "",
       email: "",
       password: "",
       message: "",
@@ -45,16 +45,16 @@ class SignUp extends Component {
     let errors = this.state.errors;
 
     switch (name) {
-      case 'firstname':
-        errors.firstname = 
+      case 'name':
+        errors.name = 
           value.length < 3
-            ? 'FirstName must be 3 characters long!'
+            ? 'Name must be 3 characters long!'
             : '';
         break;
-      case 'lastname':
-        errors.lastname = 
+      case 'surname':
+        errors.surname = 
           value.length < 3
-            ? 'LastName must be 3 characters long!'
+            ? 'Surname must be 3 characters long!'
             : '';
         break;
       case 'username':
@@ -90,8 +90,9 @@ class SignUp extends Component {
     this.setState({validForm: valid});
     if(valid){
       Authentication.register(
-        this.state.firstname,
-        this.state.lastname,
+        this.state.surname,
+        this.state.name,
+        this.state.patronymic,
         this.state.username,
         this.state.email,
         this.state.password
@@ -144,42 +145,53 @@ class SignUp extends Component {
           <Col sm="12" md={{ size: 4, offset: 4 }}>
           {title}
             <Form onSubmit={this.signUp}>
-              <FormGroup controlId="forFirstname">
-                <Label for="firstname">First Name</Label>
+             <FormGroup controlId="forSurname">
+                <Label for="surname">Surname</Label>
                 <Input
                   type="text" 
-                  placeholder="Enter First Name"
-                  name="firstname" id="firstname"
-                  value={this.state.firstname}
-                  autoComplete="firstname"
+                  placeholder="Enter surname"
+                  name="surname" id="surname"
+                  value={this.state.surname}
+                  autoComplete="surname"
                   onChange={this.changeHandler}
                 />
                 {
-                  errors.firstname && ( 
+                  errors.surname && ( 
                       <Alert variant="danger">
-                        {errors.firstname}
+                        {errors.surname}
+                      </Alert>
+                    )
+                }
+              </FormGroup>
+              <FormGroup controlId="forname">
+                <Label for="name">Name</Label>
+                <Input
+                  type="text" 
+                  placeholder="Enter Name"
+                  name="name" id="name"
+                  value={this.state.name}
+                  autoComplete="name"
+                  onChange={this.changeHandler}
+                />
+                {
+                  errors.name && ( 
+                      <Alert variant="danger">
+                        {errors.name}
                       </Alert>
                     )
                 }
               </FormGroup>
 
-              <FormGroup controlId="forLastname">
-                <Label for="lastname">Last Name</Label>
+              <FormGroup controlId="forPatronymic">
+                <Label for="patronymic">Patronymic</Label>
                 <Input
                   type="text" 
-                  placeholder="Enter Last Name"
-                  name="lastname" id="lastname"
-                  value={this.state.lastname}
-                  autoComplete="lastname"
+                  placeholder="Enter patronymic"
+                  name="patronymic" id="patronymic"
+                  value={this.state.patronymic}
+                  autoComplete="patronymic"
                   onChange={this.changeHandler}
                 />
-                {
-                  errors.lastname && ( 
-                      <Alert variant="danger">
-                        {errors.firstname}
-                      </Alert>
-                    )
-                }
               </FormGroup>
 
               <FormGroup controlId="forUsername">

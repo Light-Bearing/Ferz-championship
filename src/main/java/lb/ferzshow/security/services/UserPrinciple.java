@@ -1,4 +1,4 @@
-package lb.ferzshow.services;
+package lb.ferzshow.security.services;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import lb.ferzshow.model.User;
@@ -20,6 +20,9 @@ public class UserPrinciple implements UserDetails {
     private Long id;
     private String username;
     private String email;
+    private String surname;
+    private String name;
+
 
     @JsonIgnore
     private String password;
@@ -35,6 +38,8 @@ public class UserPrinciple implements UserDetails {
         return new UserPrinciple(
                 user.getId(),
                 user.getUsername(),
+                user.getSurname(),
+                user.getName(),
                 user.getEmail(),
                 user.getPassword(),
                 authorities

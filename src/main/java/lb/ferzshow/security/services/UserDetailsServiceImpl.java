@@ -1,4 +1,4 @@
-package lb.ferzshow.services;
+package lb.ferzshow.security.services;
 
 import lb.ferzshow.model.User;
 import lb.ferzshow.repository.UserRepository;

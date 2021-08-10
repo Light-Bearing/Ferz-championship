@@ -2,12 +2,11 @@ package lb.ferzshow.security.jwt;
 
 
 import io.jsonwebtoken.*;
-import lb.ferzshow.services.UserPrinciple;
+import lb.ferzshow.security.services.UserPrinciple;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
-
 
 import java.util.Date;
 

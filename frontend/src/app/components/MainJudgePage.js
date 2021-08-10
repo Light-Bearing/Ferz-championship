@@ -4,7 +4,7 @@ import {Container} from 'reactstrap';
 import BackendService from '../services/BackendService';
 import {Alert} from "react-bootstrap"
 
-class UserPage extends Component {
+class MainJudgePage extends Component {
   constructor(props) {
     super(props);
     this.state={
@@ -14,7 +14,7 @@ class UserPage extends Component {
   }
 
   componentDidMount() {
-    BackendService.getUserBoard()
+    BackendService.getMainJudgeBoard()
       .then( response => {
         this.setState({content: response.data})
       } , error => {
@@ -51,4 +51,4 @@ class UserPage extends Component {
   }
 }
 
-export default UserPage;
+export default MainJudgePage;

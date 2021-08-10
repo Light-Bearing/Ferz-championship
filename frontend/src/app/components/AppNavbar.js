@@ -1,8 +1,6 @@
-import React, { Component } from 'react';
-import { Collapse, Nav, Navbar, NavbarBrand, NavbarToggler, NavbarText, NavItem, NavLink } from 'reactstrap';
-import { Link } from 'react-router-dom';
-
-import { withRouter } from 'react-router-dom';
+import React, {Component} from 'react';
+import {Collapse, Nav, Navbar, NavbarText, NavbarToggler, NavItem, NavLink} from 'reactstrap';
+import {withRouter} from 'react-router-dom';
 
 import AuthenticationService from '../services/AuthenticationService';
 
@@ -32,8 +30,9 @@ class AppNavbar extends Component {
       });
   
       this.setState({
-        showUser: true,
+        showUser: roles.includes("ROLE_JUDGE") || roles.includes("ROLE_ADMIN"),
         showPM: roles.includes("ROLE_PM") || roles.includes("ROLE_ADMIN"),
+        shomawinJudge: roles.includes("ROLE_MAIN_JUDGE") || roles.includes("ROLE_ADMIN"),
         showAdmin: roles.includes("ROLE_ADMIN"),
         login: true,
         username: user.username
@@ -55,10 +54,11 @@ class AppNavbar extends Component {
 
   render() {
     return <Navbar color="dark" dark expand="md">
-      <NavbarBrand tag={Link} to="/home">Loizenai.com</NavbarBrand>
+      {/* <NavbarBrand tag={Link} to="/home">Loizenai.com</NavbarBrand> */}
       <Nav className="mr-auto">
-        <NavLink href="/home">Home</NavLink>
-        {this.state.showUser && <NavLink href="/user">User</NavLink>}
+        {this.state.showUser && <NavLink href="/home">Home</NavLink>}
+        {this.state.showUser && <NavLink href="/user">Judge</NavLink>}
+        {this.state.shomawinJudge && <NavLink href="/main_judge">Main judge</NavLink>}
         {this.state.showPM && <NavLink href="/pm">PM</NavLink>}
         {this.state.showAdmin && <NavLink href="/admin">Admin</NavLink>}
       </Nav>

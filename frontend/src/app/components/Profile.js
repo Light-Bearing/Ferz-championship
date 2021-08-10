@@ -1,8 +1,8 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import AppNavbar from './AppNavbar';
-import { Link } from 'react-router-dom';
-import { Button, Container } from 'reactstrap';
-import { Alert } from "react-bootstrap"
+import {Link} from 'react-router-dom';
+import {Button, Container} from 'reactstrap';
+import {Alert} from "react-bootstrap"
 
 import AuthenticationService from '../services/AuthenticationService';
 
@@ -23,7 +23,7 @@ class Profile extends Component {
     const user = this.state.user;
 
     // login
-    if (user && user.accessToken) {
+    if (user && user.token) {
 
       let roles = "";
 
@@ -37,7 +37,7 @@ class Profile extends Component {
                     <h2>User Info</h2>
                     <ul>
                       <li>Username: {user.username}</li>
-                      <li>Access Token: {user.accessToken}</li>
+                      <li>Access Token: {user.token}</li>
                       <li>Authorities: {roles}</li>
                     </ul>
                   </Alert>

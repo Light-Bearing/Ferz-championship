@@ -1,10 +1,9 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import AppNavbar from './AppNavbar';
-import { Container } from 'reactstrap';
-import { Form, Alert, FormGroup, Input, Label, Row, Col } from "reactstrap";
+import {Alert, Col, Container, Form, FormGroup, Input, Label, Row} from 'reactstrap';
 import {Button} from 'react-bootstrap';
 import AuthenticationService from "../services/AuthenticationService";
-import avatar from '../../avatar.png';
+// import avatar from '../../avatar.png';
 
 import '../../App.css';
 
@@ -51,8 +50,8 @@ class Login extends Component {
           <Row style={{marginTop:"20px"}}>
           <Col sm="12" md={{ size: 3, offset: 4 }}>
             <div style={{marginBottom: "10px"}}>
-              <img src={avatar} alt="Avatar" className="avatar center" 
-                style={{width: "50%", height: "auto"}}/>
+              {/* <img src={avatar} alt="Avatar" className="avatar center" 
+                style={{width: "50%", height: "auto"}}/> */}
             </div>
             <Form  onSubmit={this.doLogin}>
               <FormGroup>
