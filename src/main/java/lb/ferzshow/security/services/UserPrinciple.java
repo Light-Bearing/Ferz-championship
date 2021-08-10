@@ -37,10 +37,10 @@ public class UserPrinciple implements UserDetails {
                 .collect(Collectors.toList());
         return new UserPrinciple(
                 user.getId(),
+                user.getEmail(),
                 user.getUsername(),
                 user.getSurname(),
                 user.getName(),
-                user.getEmail(),
                 user.getPassword(),
                 authorities
         );

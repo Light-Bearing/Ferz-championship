@@ -33,7 +33,7 @@ class Login extends Component {
                   this.state.password)
       .then(
         () => {
-          this.props.history.push('/profile');
+          this.props.history.push('/riders');
         },
         error => {
           console.log("Login fail: error = { " + error.toString() + " }");
@@ -49,10 +49,6 @@ class Login extends Component {
         <Container fluid>
           <Row style={{marginTop:"20px"}}>
           <Col sm="12" md={{ size: 3, offset: 4 }}>
-            <div style={{marginBottom: "10px"}}>
-              {/* <img src={avatar} alt="Avatar" className="avatar center" 
-                style={{width: "50%", height: "auto"}}/> */}
-            </div>
             <Form  onSubmit={this.doLogin}>
               <FormGroup>
                 <Label for="username"><strong>Username</strong></Label>

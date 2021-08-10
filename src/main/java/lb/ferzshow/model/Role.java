@@ -9,6 +9,7 @@ import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
 @Entity
@@ -21,5 +22,7 @@ public class Role extends BaseEntity implements Serializable {
     @NaturalId
     @Column(length = 60)
     private RoleName name;
+    @ManyToMany(mappedBy = "roles")
+    private List<User> users;
 
 }

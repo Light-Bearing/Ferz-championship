@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {BrowserRouter as Router, Route, Switch} from 'react-router-dom';
 import './App.css';
-import Home from './app/components/Home';
+import RidersList from './app/components/RidersList';
 import Profile from './app/components/Profile';
 import UserPage from './app/components/UserPage';
 import ProjectManagerPage from './app/components/ProjectManagerPage';
@@ -16,8 +16,8 @@ class App extends Component {
     return (
       <Router>
         <Switch>
-          <Route path='/' exact={true} component={Home}/>
-          <Route path='/home' exact={true} component={Home}/>
+          <Route path='/' exact={true} component={Login}/>
+          <Route path='/riders' exact={true} component={RidersList}/>
           <Route path='/profile' exact={true} component={Profile}/>
           <Route path='/user' exact={true} component={UserPage}/>
           <Route path='/main_judge' exact={true} component={MainJudgePage}/>

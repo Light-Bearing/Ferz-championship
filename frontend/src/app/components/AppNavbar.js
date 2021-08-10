@@ -60,33 +60,36 @@ class AppNavbar extends Component {
     return <Navbar color="dark" dark expand="md">
       {/* <NavbarBrand tag={Link} to="/home">Loizenai.com</NavbarBrand> */}
       <Nav className="mr-auto">
-        {this.state.showUser && <NavLink href="/home">Home</NavLink>}
+        {this.state.showUser && <NavLink href="/riders">Rider List</NavLink>}
         {this.state.showUser && <NavLink href="/user">Judge</NavLink>}
         {this.state.shomawinJudge && <NavLink href="/main_judge">Main judge</NavLink>}
         {this.state.showPM && <NavLink href="/pm">PM</NavLink>}
         {this.state.showAdmin && <NavLink href="/admin">Admin</NavLink>}
       </Nav>
+      {this.state.login &&(
+         <Nav className="justify-content-center" style={{ flex: 1}} navbar >
+          <NavItem>
+            <NavbarText>
+              Signed in as: <a href="/profile">{this.state.surname+" "+this.state.name + " (" + this.state.username+")"}</a>
+            </NavbarText>
+          </NavItem>
+        </Nav>)}
       <NavbarToggler onClick={this.toggle}/>
       <Collapse isOpen={this.state.isOpen} navbar>
         {
           this.state.login ? (
             <Nav className="ml-auto" navbar>
               <NavItem>
-                  <NavbarText>
-                    Signed in as: <h3>{this.state.surname+" "+this.state.name}</h3><a href="/profile">{this.state.username}</a>
-                  </NavbarText>
+                <NavLink href="#" onClick={this.signOut}>SignOut</NavLink>
               </NavItem>
               <NavItem>
-                <NavLink href="#" onClick={this.signOut}>SignOut</NavLink>
+                <NavLink href="/signup">SignUp</NavLink>
               </NavItem>
             </Nav>                 
           ) : (
             <Nav className="ml-auto" navbar>
               <NavItem>
-                <NavLink href="/signin">Login</NavLink>
-              </NavItem>
-              <NavItem>
-                <NavLink href="/signup">SignUp</NavLink>
+                <NavLink href="/signin">Signin</NavLink>
               </NavItem>
             </Nav>
           )

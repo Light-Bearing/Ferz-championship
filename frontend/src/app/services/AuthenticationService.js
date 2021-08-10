@@ -24,10 +24,11 @@ class AuthenticationService {
     localStorage.removeItem("user");
   }
 
-  register = async(firstname, lastname, username, email, password) => {
+  register = async(surname, name,patronymic, username, email, password) => {
     return axios.post("/api/auth/signup", {
-      firstname,
-      lastname,
+      surname,
+      name,
+      patronymic,
       username,
       email,
       password

@@ -116,7 +116,7 @@ class SignUp extends Component {
   }
 
   render() {
-    const title = <h2>Register User</h2>;
+    const title = <h2>Register Judge</h2>;
     const errors = this.state.errors;
 
     let alert = "";

@@ -28,6 +28,11 @@ class BackendService {
   async getMainJudgeBoard() {
     return await axios.get("/api/test/main_judge");
   }
+
+  
+  async getRiderList() {
+    return await axios.get("/riders");
+  }
 }
 
 export default new BackendService();
