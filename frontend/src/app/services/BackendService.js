@@ -1,38 +1,42 @@
 import axios from 'axios';
 
 // Add a request interceptor
-axios.interceptors.request.use( config => {
-  const user = JSON.parse(localStorage.getItem('user'));
+axios.interceptors.request.use(config => {
+    const user = JSON.parse(localStorage.getItem('user'));
 
-  if(user && user.token){
-    const token = 'Bearer ' + user.token;
-    config.headers.Authorization =  token;
-  }
+    if (user && user.token) {
+        const token = 'Bearer ' + user.token;
+        config.headers.Authorization = token;
+    }
 
-  return config;
+    return config;
 });
 
 class BackendService {
-  async getUserBoard() {
-    return await axios.get("/api/test/judge");
-  }
+    async getUserBoard() {
+        return await axios.get("/api/test/judge");
+    }
 
-  async getPmBoard() {
-    return await axios.get("/api/test/pm");
-  }
+    async getPmBoard() {
+        return await axios.get("/api/test/pm");
+    }
 
-  async getAdminBoard() {
-    return await axios.get("/api/test/admin");
-  }
+    async getAdminBoard() {
+        return await axios.get("/api/test/admin");
+    }
 
-  async getMainJudgeBoard() {
-    return await axios.get("/api/test/main_judge");
-  }
+    async getMainJudgeBoard() {
+        return await axios.get("/api/test/main_judge");
+    }
 
-  
-  async getRiderList() {
-    return await axios.get("/riders");
-  }
+
+    async getRiderList() {
+        return await axios.get("/riders");
+    }
+
+    async setNewRider(rider) {
+        return await axios.post("/riders", rider);
+    }
 }
 
 export default new BackendService();

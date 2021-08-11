@@ -45,3 +45,5 @@ spring:
 app:
   jwtSecret: fmxChampinship
   jwtExpiration: 86400
+server:
+  port: 8081

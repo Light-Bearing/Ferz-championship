@@ -12,7 +12,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 onload(async () => {
     try {
         let response = await fetch('config.json');
-        if (response.status != 200)
+        if (response.status !== 200)
             throw new Error('Невозможно загрузить настройки из config_frontend.json');
         let config = await response.json();
         ReactDOM.render(<App config={config} />, document.getElementById('root'));
