@@ -29,14 +29,6 @@ class BackendService {
         return await axios.get("/api/test/main_judge");
     }
 
-
-    async getRiderList() {
-        return await axios.get("/riders");
-    }
-
-    async setNewRider(rider) {
-        return await axios.post("/riders", rider);
-    }
 }
 
 export default new BackendService();

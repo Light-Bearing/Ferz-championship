@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {Input, Label} from 'reactstrap';
 import {Alert, Button, Modal} from "react-bootstrap";
-import BackendService from "../services/BackendService";
+import RiderService from "../services/RiderService";
 
 
 class RiderForm extends Component {
@@ -22,7 +22,13 @@ class RiderForm extends Component {
 
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (prevProps.rider !== this.props.rider) {
-            this.setState({rider: this.props.rider})
+            this.setState({
+                rider: this.props.rider ? {...this.props.rider} : {
+                    surname: "",
+                    name: "",
+                    patronymic: ""
+                }
+            })
         }
     }
 
@@ -35,15 +41,18 @@ class RiderForm extends Component {
         this.setState({rider});
     }
 
-    saveAndClose() {
-        BackendService.setNewRider(this.state.rider);
-        this.props.onClose();
+    saveAndClose = () => {
+        this.props.action === "A" ?
+            RiderService.setNewRider(this.state.rider).then(rider =>
+                this.props.onClose(this.props.action, rider.data)) :
+            RiderService.setUpdateRider(this.state.rider).then(rider =>
+                this.props.onClose(this.props.action, rider.data))
     }
 
     render() {
         return <Modal show={this.props.show} onHide={this.props.onClose}>
             <Modal.Header closeButton>
-                <Modal.Title>New a rider</Modal.Title>
+                <Modal.Title>{this.props.action === "A" ? "New a  rider" : "Rider editing"}</Modal.Title>
             </Modal.Header>
             <Modal.Body>
                 <Alert variant="info">
@@ -77,10 +86,10 @@ class RiderForm extends Component {
                 </Alert>
             </Modal.Body>
             <Modal.Footer>
-                <Button variant="secondary" onClick={this.state.saveAndClose}>
+                <Button variant="secondary" onClick={this.props.onClose}>
                     Close
                 </Button>
-                <Button variant="primary" onClick={this.props.onClose}>
+                <Button variant="primary" onClick={this.saveAndClose}>
                     Save Changes
                 </Button>
             </Modal.Footer>
