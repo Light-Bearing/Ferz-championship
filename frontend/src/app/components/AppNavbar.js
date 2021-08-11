@@ -11,6 +11,7 @@ class AppNavbar extends Component {
     this.toggle = this.toggle.bind(this);
 
     this.state = {
+      roles:[],
       showUser: false,
       showPM: false,
       showAdmin: false,
@@ -32,9 +33,11 @@ class AppNavbar extends Component {
       });
   
       this.setState({
-        showUser: roles.includes("ROLE_JUDGE") || roles.includes("ROLE_ADMIN"),
+        roles,
+        showAll: roles.includes("ROLE_MAIN_JUDGE") || roles.includes("ROLE_JUDGE") || roles.includes("ROLE_PM") || roles.includes("ROLE_ADMIN"),
+        showJudge: roles.includes("ROLE_JUDGE") || roles.includes("ROLE_ADMIN"),
         showPM: roles.includes("ROLE_PM") || roles.includes("ROLE_ADMIN"),
-        shomawinJudge: roles.includes("ROLE_MAIN_JUDGE") || roles.includes("ROLE_ADMIN"),
+        showMainJudge: roles.includes("ROLE_MAIN_JUDGE") || roles.includes("ROLE_ADMIN"),
         showAdmin: roles.includes("ROLE_ADMIN"),
         login: true,
         username: user.username,
@@ -46,7 +49,7 @@ class AppNavbar extends Component {
 
   signOut = () => {
     AuthenticationService.signOut();
-    this.props.history.push('/home');
+    this.props.history.push('/');
     window.location.reload();
   }
 
@@ -58,11 +61,10 @@ class AppNavbar extends Component {
 
   render() {
     return <Navbar color="dark" dark expand="md">
-      {/* <NavbarBrand tag={Link} to="/home">Loizenai.com</NavbarBrand> */}
       <Nav className="mr-auto">
-        {this.state.showUser && <NavLink href="/riders">Rider List</NavLink>}
-        {this.state.showUser && <NavLink href="/user">Judge</NavLink>}
-        {this.state.shomawinJudge && <NavLink href="/main_judge">Main judge</NavLink>}
+        {this.state.showMainJudge && <NavLink href="/main_judge">Main judge</NavLink>}
+        {this.state.showJudge && <NavLink href="/judge">Judge</NavLink>}
+        {this.state.showAll && <NavLink href="/riders">Rider List</NavLink>}
         {this.state.showPM && <NavLink href="/pm">PM</NavLink>}
         {this.state.showAdmin && <NavLink href="/admin">Admin</NavLink>}
       </Nav>
@@ -82,10 +84,13 @@ class AppNavbar extends Component {
               <NavItem>
                 <NavLink href="#" onClick={this.signOut}>SignOut</NavLink>
               </NavItem>
-              <NavItem>
+
+              {this.state.roles.includes("ROLE_ADMIN") &&
+                <NavItem>
                 <NavLink href="/signup">SignUp</NavLink>
               </NavItem>
-            </Nav>                 
+              }
+            </Nav>
           ) : (
             <Nav className="ml-auto" navbar>
               <NavItem>

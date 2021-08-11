@@ -4,7 +4,7 @@ import {Container, Input} from 'reactstrap';
 import BackendService from '../services/BackendService';
 import {Alert} from "react-bootstrap"
 
-class UserPage extends Component {
+class JudgePage extends Component {
   constructor(props) {
     super(props);
     this.state={
@@ -52,4 +52,4 @@ class UserPage extends Component {
   }
 }
 
-export default UserPage;
+export default JudgePage;
