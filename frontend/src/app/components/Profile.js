@@ -21,7 +21,7 @@ class Profile extends Component {
     render() {
         let userInfo = "";
         const user = this.state.user;
-
+        console.log(user)
         // login
         if (user && user.token) {
 

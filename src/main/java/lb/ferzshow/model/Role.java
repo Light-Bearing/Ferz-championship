@@ -1,6 +1,7 @@
 package lb.ferzshow.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -22,7 +23,12 @@ public class Role extends BaseEntity implements Serializable {
     @NaturalId
     @Column(length = 60)
     private RoleName name;
+    @Column(length = 60)
+    private String name_rus;
+    @Column(length = 60)
+    private String name_eng;
     @ManyToMany(mappedBy = "roles")
+    @JsonIgnore
     private List<User> users;
 
 }

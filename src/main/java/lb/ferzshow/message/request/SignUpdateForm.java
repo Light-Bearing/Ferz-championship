@@ -9,11 +9,12 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.stream.Collectors;
-
 @Data
-public class SignUpForm {
+public class SignUpdateForm {
+
+    @NotEmpty
+    private Long id;
 
     @NotEmpty
     @Size(max = 128)
@@ -39,7 +40,7 @@ public class SignUpForm {
     private String password;
 
     @NotEmpty(message = "Роли должны быть заполены")
-    private List<Long> rolesId;
+    private List<Long> roleId;
 
     public User toUser(List<Role> allRoles) {
         Map<Long, Role> roleById = allRoles
@@ -48,13 +49,11 @@ public class SignUpForm {
 
         return User
                 .builder()
-                .surname(this.surname)
                 .name(this.name)
-                .patronymic(this.patronymic)
                 .username(this.username)
                 .email(this.email)
                 .password(this.password)
-                .roles(rolesId
+                .roles(roleId
                         .stream()
                         .filter(roleById::containsKey)
                         .map(roleById::get)
@@ -62,4 +61,13 @@ public class SignUpForm {
                 .build();
     }
 
+    public User updateUser(User user) {
+        return user
+                .toBuilder()
+                .name(this.name)
+                .username(this.username)
+                .email(this.email)
+                .build();
+    }
 }
+

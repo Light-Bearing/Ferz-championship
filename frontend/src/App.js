@@ -9,6 +9,7 @@ import SignUp from './app/components/SignUp';
 import AdminPage from './app/components/AdminPage';
 import Login from './app/components/Login';
 import MainJudgePage from './app/components/MainJudgePage';
+import UsersList from "./app/components/UsersList";
 
 
 class App extends Component {
@@ -23,6 +24,7 @@ class App extends Component {
           <Route path='/main_judge' exact={true} component={MainJudgePage}/>
           <Route path='/pm' exact={true} component={ProjectManagerPage}/>
           <Route path='/admin' exact={true} component={AdminPage}/>
+          <Route path='/users' exact={true} component={UsersList}/>
           <Route path='/signin' exact={true} component={Login}/>
           <Route path='/signup' exact={true} component={SignUp}/>  
         </Switch>

@@ -68,6 +68,7 @@ class AppNavbar extends Component {
                     {this.state.showAll && <NavLink href="/riders">Rider List</NavLink>}
                     {this.state.showPM && <NavLink href="/pm">PM</NavLink>}
                     {this.state.showAdmin && <NavLink href="/admin">Admin</NavLink>}
+                    {this.state.showAdmin && <NavLink href="/users">User list</NavLink>}
                 </Nav>
             </Collapse>
             {this.state.login && (

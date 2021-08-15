@@ -1,7 +1,8 @@
 package lb.ferzshow.controller;
 
-import lb.ferzshow.message.request.LoginForm;
-import lb.ferzshow.message.request.SignUpForm;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import lb.ferzshow.message.request.*;
 import lb.ferzshow.message.response.JwtResponse;
 import lb.ferzshow.message.response.ResponseMessage;
 import lb.ferzshow.model.Role;
@@ -12,6 +13,7 @@ import lb.ferzshow.repository.UserRepository;
 import lb.ferzshow.security.jwt.JwtProvider;
 import lb.ferzshow.security.services.UserPrinciple;
 import lombok.AllArgsConstructor;
+import lombok.val;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -19,13 +21,14 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
 import java.nio.file.attribute.UserPrincipal;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:8080"}, maxAge = 3600)
@@ -52,7 +55,7 @@ public class AuthenticationController {
 
         String jwt = jwtProvider.generateJwtToken(authentication);
         UserPrinciple userPrinciple = (UserPrinciple) authentication.getPrincipal();
-        return ResponseEntity.ok(new JwtResponse(jwt, userPrinciple.getUsername(),userPrinciple.getSurname(),userPrinciple.getName(), userPrinciple.getAuthorities()));
+        return ResponseEntity.ok(new JwtResponse(jwt, userPrinciple.getUsername(), userPrinciple.getSurname(), userPrinciple.getName(), userPrinciple.getAuthorities()));
     }
 
     @PostMapping("/signup")
@@ -69,57 +72,65 @@ public class AuthenticationController {
         }
 
         // Creating user's account
-        User user = new User(
-                signUpRequest.getEmail(),
-                signUpRequest.getUsername(),
-                signUpRequest.getSurname(),
-                signUpRequest.getName(),
-                signUpRequest.getPatronymic(),
-                encoder.encode(signUpRequest.getPassword()));
+        User user = signUpRequest.toUser(roleRepository.findAll());
+        user.setPassword(encoder.encode(signUpRequest.getPassword()));
 
-        Set<Role> roles = new HashSet<>();
-        if (signUpRequest.getRole() != null) {
-            Set<String> strRoles = signUpRequest.getRole();
-
-            strRoles.forEach(role -> {
-                switch (role) {
-                    case "admin":
-                        Role adminRole = roleRepository.findByName(RoleName.ROLE_ADMIN)
-                                .orElseThrow(() -> new RuntimeException("Fail! -> Cause: User Role not find."));
-                        roles.add(adminRole);
-
-                        break;
-                    case "pm":
-                        Role pmRole = roleRepository.findByName(RoleName.ROLE_PM)
-                                .orElseThrow(() -> new RuntimeException("Fail! -> Cause: User Role not find."));
-                        roles.add(pmRole);
-
-                        break;
-                    case "mainJidge":
-                        Role mainJudgeRole = roleRepository.findByName(RoleName.ROLE_MAIN_JUDGE)
-                                .orElseThrow(() -> new RuntimeException("Fail! -> Cause: User Role not find."));
-                        roles.add(mainJudgeRole);
-
-                        break;
-                    default:
-                        Role userRole = roleRepository.findByName(RoleName.ROLE_JUDGE)
-                                .orElseThrow(() -> new RuntimeException("Fail! -> Cause: User Role not find."));
-                        roles.add(userRole);
-                }
-            });
-        } else {
-            // default mode : User register
-            Role userRole = roleRepository.findByName(RoleName.ROLE_JUDGE)
-                    .orElseThrow(() -> new RuntimeException("Fail! -> Cause: User Role not find."));
-            roles.add(userRole);
-        }
-
-        user.setRoles(roles);
         userRepository.save(user);
 
         return new ResponseEntity<>(new ResponseMessage("User " + signUpRequest.getName() + " is registered successfully!"), HttpStatus.OK);
 
     }
 
+    @PostMapping("/update_password")
+    @PreAuthorize("hasRole('ADMIN') OR principal.user.id == #request.id")
+    @Operation(description = "Обновление пароля пользователя, доступно для пользователей с ролью ADMIN и для самих пользователей")
+    public ResponseEntity<?> updatePassword(@Valid @RequestBody UpdatePasswordRequest request) {
+        userRepository.findById(request.getId()).ifPresent(user -> {
+            user.setPassword(encoder.encode(request.getPassword()));
+            userRepository.save(user);
+        });
+        return new ResponseEntity<>(new ResponseMessage("Password updated"), HttpStatus.OK);
+    }
 
+    @PostMapping("/update_roles")
+    @PreAuthorize("hasRole('ADMIN')")
+    @Operation( description = "Обновление ролей, доступно для пользователей с ролью ADMIN")
+    public ResponseEntity<?> updateRoles(@Valid @RequestBody UpdateRolesRequest request) {
+        userRepository.findById(request.getUserId()).ifPresent(user -> {
+            val roles = roleRepository.findAllById(request.getRoleIds());
+
+            user.setRoles(new HashSet<>(roles));
+
+            userRepository.save(user);
+        });
+        return new ResponseEntity<>(new ResponseMessage("Roles updated"), HttpStatus.OK);
+    }
+
+    @PostMapping("/update_user")
+    @PreAuthorize("hasRole('ADMIN') OR principal.user.id == #request.id")
+    @Operation(description = "Обновление главных данных пользователя, доступно для пользователей с ролью ADMIN")
+    public ResponseEntity<?> updateUser(
+            @Valid @RequestBody SignUpdateForm request) {
+        if (userRepository.existsByUsername(request.getUsername())||userRepository.existsByEmail(request.getEmail())) {
+            return new ResponseEntity<>(new ResponseMessage("Fail -> Username is already taken!"),
+                    HttpStatus.BAD_REQUEST);
+        }
+
+        val user = userRepository
+                .findById(request.getId())
+                .orElseThrow(() -> new EntityNotFoundException("User with id = " + request.getId()));
+
+        userRepository.save(request.updateUser(user));
+
+        return new ResponseEntity<>(new ResponseMessage("User don`t updated"), HttpStatus.OK);
+
+    }
+
+    @GetMapping("/roles")
+    public List<Role> getRoleList() {
+        return roleRepository.findAll();
+    }
+
+    @GetMapping
+    public List<User> getUserList(){return userRepository.findAll();}
 }

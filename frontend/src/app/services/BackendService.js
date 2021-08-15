@@ -28,7 +28,6 @@ class BackendService {
     async getMainJudgeBoard() {
         return await axios.get("/api/test/main_judge");
     }
-
 }
 
 export default new BackendService();

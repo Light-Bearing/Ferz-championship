@@ -61,6 +61,7 @@ class Login extends Component {
                     <Row style={{marginTop: "20px"}}>
                         <Col sm="12" md={{size: 3, offset: 4}}>
                             <Form onSubmit={this.doLogin}>
+                                <h1 style={{"text-align":"center"}}>Russian Motcross Freestyle Championship</h1>
                                 <FormGroup>
                                     <Label for="username"><strong>Username</strong></Label>
                                     <Input autoFocus
