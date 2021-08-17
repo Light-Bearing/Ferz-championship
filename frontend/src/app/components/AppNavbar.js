@@ -87,12 +87,6 @@ class AppNavbar extends Component {
                             <NavItem>
                                 <NavLink href="#" onClick={this.signOut}>SignOut</NavLink>
                             </NavItem>
-
-                            {this.state.roles.includes("ROLE_ADMIN") &&
-                            <NavItem>
-                                <NavLink href="/signup">SignUp</NavLink>
-                            </NavItem>
-                            }
                         </Nav>
                     ) : (
                         <Nav className="ml-auto" navbar>

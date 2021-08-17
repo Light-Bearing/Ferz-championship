@@ -29,6 +29,7 @@ import javax.validation.Valid;
 import java.nio.file.attribute.UserPrincipal;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Optional;
 import java.util.Set;
 
 @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:8080"}, maxAge = 3600)
@@ -94,7 +95,7 @@ public class AuthenticationController {
 
     @PostMapping("/update_roles")
     @PreAuthorize("hasRole('ADMIN')")
-    @Operation( description = "Обновление ролей, доступно для пользователей с ролью ADMIN")
+    @Operation(description = "Обновление ролей, доступно для пользователей с ролью ADMIN")
     public ResponseEntity<?> updateRoles(@Valid @RequestBody UpdateRolesRequest request) {
         userRepository.findById(request.getUserId()).ifPresent(user -> {
             val roles = roleRepository.findAllById(request.getRoleIds());
@@ -106,24 +107,26 @@ public class AuthenticationController {
         return new ResponseEntity<>(new ResponseMessage("Roles updated"), HttpStatus.OK);
     }
 
-    @PostMapping("/update_user")
+    @PutMapping("/update_user")
     @PreAuthorize("hasRole('ADMIN') OR principal.user.id == #request.id")
     @Operation(description = "Обновление главных данных пользователя, доступно для пользователей с ролью ADMIN")
-    public ResponseEntity<?> updateUser(
-            @Valid @RequestBody SignUpdateForm request) {
-        if (userRepository.existsByUsername(request.getUsername())||userRepository.existsByEmail(request.getEmail())) {
+    public ResponseEntity<?> updateUser(@Valid @RequestBody SignUpdateForm request) {
+        User findUser = userRepository.findByUsernameOrEmail(request.getUsername(), request.getEmail()).orElse(null);
+        if (findUser != null && !findUser.getId().equals(request.getId())) {
             return new ResponseEntity<>(new ResponseMessage("Fail -> Username is already taken!"),
                     HttpStatus.BAD_REQUEST);
         }
 
-        val user = userRepository
-                .findById(request.getId())
-                .orElseThrow(() -> new EntityNotFoundException("User with id = " + request.getId()));
+        if (findUser != null) {
+            List<Role> roles = roleRepository.findAll();
+            User updatedUser = request.updateUser(findUser,roles);
+            updatedUser.setId(request.getId());
+            userRepository.save(updatedUser);
 
-        userRepository.save(request.updateUser(user));
-
-        return new ResponseEntity<>(new ResponseMessage("User don`t updated"), HttpStatus.OK);
-
+            return new ResponseEntity<>(new ResponseMessage("User updated"), HttpStatus.OK);
+        }
+        else return new ResponseEntity<>(new ResponseMessage("Fail -> Username is already taken!"),
+                HttpStatus.BAD_REQUEST);
     }
 
     @GetMapping("/roles")
@@ -132,5 +135,13 @@ public class AuthenticationController {
     }
 
     @GetMapping
-    public List<User> getUserList(){return userRepository.findAll();}
+    public List<User> getUserList() {
+        return userRepository.findAll();
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity deleteUser(@PathVariable Long id) {
+        userRepository.deleteById(id);
+        return ResponseEntity.ok().build();
+    }
 }

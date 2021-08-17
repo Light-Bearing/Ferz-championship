@@ -25,8 +25,12 @@ class UserService {
         return await axios.delete("/api/auth/" + id);
     }
 
-    async setUpdateUser(rider) {
-        return await axios.put("/api/auth/" + rider.id, rider)
+    async setUpdateUser(user) {
+        return await axios.put("/api/auth/update_user", user)
+    }
+
+    async setUpdatePassword(id, password){
+        return await  axios.post("/api/auth/update_password",{id:id,password:password})
     }
 }
 

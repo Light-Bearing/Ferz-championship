@@ -5,7 +5,6 @@ import RidersList from './app/components/RidersList';
 import Profile from './app/components/Profile';
 import JudgePage from './app/components/JudgePage';
 import ProjectManagerPage from './app/components/ProjectManagerPage';
-import SignUp from './app/components/SignUp';
 import AdminPage from './app/components/AdminPage';
 import Login from './app/components/Login';
 import MainJudgePage from './app/components/MainJudgePage';
@@ -26,7 +25,6 @@ class App extends Component {
           <Route path='/admin' exact={true} component={AdminPage}/>
           <Route path='/users' exact={true} component={UsersList}/>
           <Route path='/signin' exact={true} component={Login}/>
-          <Route path='/signup' exact={true} component={SignUp}/>  
         </Switch>
       </Router>
     )

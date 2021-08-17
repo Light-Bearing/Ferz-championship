@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import AppNavbar from './AppNavbar';
 import {Alert, Container, Button} from "react-bootstrap";
 import AuthenticationService from "../services/AuthenticationService";
-// import UserForm from './UserForm';
+import UserForm from './UserForm';
 import UserService from "../services/UserService";
 
 class UsersList extends Component {
@@ -19,7 +19,7 @@ class UsersList extends Component {
         };
     }
 
-    componentDidMount() {
+    getUserList=()=>{
         UserService.getUserList()
             .then(response => {
                 this.setState({
@@ -31,6 +31,9 @@ class UsersList extends Component {
                     error: error.toString()
                 });
             });
+    }
+
+    componentDidMount() {
         const user = AuthenticationService.getCurrentUser();
         if (user) {
             const roles = [];
@@ -40,7 +43,7 @@ class UsersList extends Component {
             const isEditable = roles.includes("ROLE_ADMIN") || roles.includes("PM");
             this.setState({isEditable});
         }
-
+        this.getUserList();
     }
 
 
@@ -77,14 +80,17 @@ class UsersList extends Component {
     render() {
         return (
             <div>
-                {/*{this.state.editedId ?*/}
-                {/*    (<UserForm show={this.state.show} onClose={this.handleClose}*/}
-                {/*                action={this.state.action}*/}
-                {/*                user={this.state.userList[this.state.userList.findIndex(el => el.id === this.state.editedId)]}*/}
-                {/*    />) : (<UserForm show={this.state.show} onClose={this.handleClose}*/}
-                {/*                      action={this.state.action}*/}
-                {/*    />)*/}
-                {/*}*/}
+                {this.state.editedId ?
+                    (<UserForm show={this.state.show}
+                               onClose={this.handleClose}
+                               action={this.state.action}
+                               user={this.state.userList[this.state.userList.findIndex(el => el.id === this.state.editedId)]}
+                    />) : (<UserForm
+                        show={this.state.show}
+                        onClose={this.handleClose}
+                        action={this.state.action}
+                    />)
+                }
                 <AppNavbar/>
                 <Container fluid>
                     {this.state.userList.length >= 0 ? (
@@ -114,7 +120,7 @@ class UsersList extends Component {
                                                     <td className="text-center">{el.surname}</td>
                                                     <td className="text-center">{el.name}</td>
                                                     <td className="text-center">{el.patronymic}</td>
-                                                    <td className="text-center">{el.roles.map(el=>el.name_eng).join(",")}</td>
+                                                    <td className="text-center">{el.roles.map(el=>el.name_eng).join(", ")}</td>
                                                     {this.state.isEditable && <td className="text-center">
                                                         <Button variant="primary"
                                                                 onClick={() => this.showEditUser("U", el.id)}>Edit</Button>

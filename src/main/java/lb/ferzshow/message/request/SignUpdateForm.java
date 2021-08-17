@@ -13,7 +13,6 @@ import java.util.stream.Collectors;
 @Data
 public class SignUpdateForm {
 
-    @NotEmpty
     private Long id;
 
     @NotEmpty
@@ -35,38 +34,25 @@ public class SignUpdateForm {
     @Size(max = 128)
     private String patronymic;
 
-    @NotBlank
-    @Size(min = 6, max = 256)
-    private String password;
-
     @NotEmpty(message = "Роли должны быть заполены")
     private List<Long> roleId;
 
-    public User toUser(List<Role> allRoles) {
+    public User updateUser(User user,List<Role> allRoles) {
         Map<Long, Role> roleById = allRoles
                 .stream()
                 .collect(Collectors.toMap(Role::getId, role -> role));
-
-        return User
-                .builder()
+        return user
+                .toBuilder()
+                .surname(this.surname)
                 .name(this.name)
+                .patronymic(this.patronymic)
                 .username(this.username)
                 .email(this.email)
-                .password(this.password)
                 .roles(roleId
                         .stream()
                         .filter(roleById::containsKey)
                         .map(roleById::get)
                         .collect(Collectors.toList()))
-                .build();
-    }
-
-    public User updateUser(User user) {
-        return user
-                .toBuilder()
-                .name(this.name)
-                .username(this.username)
-                .email(this.email)
                 .build();
     }
 }
