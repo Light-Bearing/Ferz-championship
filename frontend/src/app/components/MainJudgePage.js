@@ -1,6 +1,6 @@
 import AppNavbar from './AppNavbar';
 import React, {Component} from 'react';
-import {Container} from 'reactstrap';
+import {Container, FormGroup, Label} from 'reactstrap';
 
 import {Alert, Button, Form} from "react-bootstrap"
 import RiderService from "../services/RiderService";
@@ -50,19 +50,30 @@ class MainJudgePage extends Component {
                         this.state.riderList ? (
                             <div style={{marginTop: "20px"}}>
                                 <Alert variant="info">
-                                    <Form.Control
-                                        as="select"
-                                        custom
-                                        onChange={this.handleChangeSelect.bind(this)}
-                                    >
-                                        {this.state.riderList.map(
-                                            rider => <option
-                                                value={rider.id}
-                                                key={rider.id}
-                                            >{rider.surname + " " + rider.name + (rider.patronymic ? " " + rider.patronymic : "")}</option>)}
+                                    <Form inline>
+                                        <FormGroup>
+                                            <Label style={{marginRight: "10px"}}>Rider:</Label>
+                                            <Form.Control
+                                                as="select"
+                                                custom
+                                                onChange={this.handleChangeSelect.bind(this)}
+                                            >
+                                                {this.state.riderList.map(
+                                                    rider => <option
+                                                        value={rider.id}
+                                                        key={rider.id}
+                                                    >{rider.surname + " " + rider.name + (rider.patronymic ? " " + rider.patronymic : "")}</option>)}
 
-                                    </Form.Control>
-                                    <Button onClick={this.start}>Start</Button>
+                                            </Form.Control>
+                                        </FormGroup>
+                                    </Form>
+                                    <div style={{"text-align":"center"}}>
+                                        <Button onClick={this.start} variant="danger" style={{
+                                            fontSize: "100px",
+                                            height: "300px",
+                                            width: "300px",
+                                            "border-radius": "50%"}}>Start</Button>
+                                    </div>
                                 </Alert>
                             </div>
                         ) : (
