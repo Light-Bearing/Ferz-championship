@@ -396,7 +396,7 @@ class UserForm extends Component {
                                 }
                             </FormGroup>
 
-                            { this.state.roles.size > 0 && <Button variant="primary" type="submit">
+                            { this.state.roles.length > 0 && <Button variant="primary" type="submit">
                                 {this.props.action === 'A' ? "Create" : "Update"}
                             </Button>}
                             {

@@ -41,6 +41,7 @@ public class SignUpdateForm {
         Map<Long, Role> roleById = allRoles
                 .stream()
                 .collect(Collectors.toMap(Role::getId, role -> role));
+        user.getRoles().clear();
         return user
                 .toBuilder()
                 .surname(this.surname)
