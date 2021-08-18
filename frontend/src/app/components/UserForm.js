@@ -54,7 +54,7 @@ class UserForm extends Component {
     componentDidUpdate(prevProps, prevState, snapshot) {
         if (this.props.user) {
             console.log(this.props.user);
-            if (prevState.username !== this.props.user.username) {
+            if (prevState.id !== this.props.user.id) {
                 this.setState({
                     id: this.props.user.id,
                     username: this.props.user.username,
@@ -67,7 +67,7 @@ class UserForm extends Component {
                 });
             }
         } else {
-            if (prevState.username !== "")
+            if (prevState.id !== this.state.id)
                 this.setState({
                     id: null,
                     username: "",
