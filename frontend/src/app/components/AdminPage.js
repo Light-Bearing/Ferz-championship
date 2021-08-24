@@ -2,13 +2,15 @@ import AppNavbar from './AppNavbar';
 import React, {Component} from 'react';
 import {Alert, Container, FormGroup, Label} from 'reactstrap';
 import BackendService from '../services/BackendService';
-import {Form, Tab, Tabs} from "react-bootstrap";
+import {Button, Form, FormCheck, Tab, Tabs} from "react-bootstrap";
 
 class AdminPage extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            mainJadge: [],
+            mainJudge: [],
+            judgeList: [],
+            assessmentCategory:[{name:"asdfasdf"},{name:"2134524"}],
             error: ""
         }
     }
@@ -51,18 +53,64 @@ class AdminPage extends Component {
                                                         custom
                                                         onChange={this.handleChangeSelect.bind(this)}
                                                     >
-                                                        {this.state.mainJadge.map(
-                                                            mainJadge => <option
-                                                                value={mainJadge.id}
-                                                                key={mainJadge.id}
-                                                            >{mainJadge.surname + " " + mainJadge.name + (mainJadge.patronymic ? " " + mainJadge.patronymic : "")}</option>)}
+                                                        {this.state.mainJudge.map(
+                                                            mainJudge => <option
+                                                                value={mainJudge.id}
+                                                                key={mainJudge.id}
+                                                            >{mainJudge.surname + " " + mainJudge.name + (mainJudge.patronymic ? " " + mainJudge.patronymic : "")}</option>)}
                                                     </Form.Control>
                                                 </FormGroup>
                                                 <FormGroup>
                                                     <Label>Judges</Label>
+                                                    <table
+                                                        className="table table-bordered align-middle border-primary">
+                                                        <thead className="table-dark">
+                                                        <tr>
+                                                            <td className="text-center">Participates</td>
+                                                            <td className="text-center">№</td>
+                                                            <td className="text-center">Surname</td>
+                                                            <td className="text-center">Name</td>
+                                                            <td className="text-center">Patronymic</td>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        {this.state.judgeList.map((el, i) => {
+                                                                return (
+                                                                    <tr key={el.id} className="table-secondary">
+                                                                        <td className="text-center"><FormCheck name="judges" type="checkbox" id={el.id} /></td>
+                                                                        <td className="text-center">{i + 1}</td>
+                                                                        <td className="text-center">{el.surname}</td>
+                                                                        <td className="text-center">{el.name}</td>
+                                                                        <td className="text-center">{el.patronymic}</td>
+                                                                    </tr>)
+                                                            }
+                                                        )}
+                                                        </tbody>
+                                                    </table>
                                                 </FormGroup>
                                                 <FormGroup>
                                                     <Label>Assessments</Label>
+                                                    <table
+                                                        className="table table-bordered align-middle border-primary">
+                                                        <thead className="table-dark">
+                                                        <tr>
+                                                            <td className="text-center">Participates</td>
+                                                            <td className="text-center">№</td>
+                                                            <td className="text-center">Assessment category</td>
+                                                        </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                        {this.state.assessmentCategory.map((el, i) => {
+                                                                return (
+                                                                    <tr key={el.id} className="table-secondary">
+                                                                        <td className="text-center"><FormCheck name="assessment" type="checkbox" id={el.id} /></td>
+                                                                        <td className="text-center">{i + 1}</td>
+                                                                        <td className="text-center">{el.name}</td>
+                                                                    </tr>)
+                                                            }
+                                                        )}
+                                                        </tbody>
+                                                    </table>
                                                 </FormGroup>
                                                 <FormGroup>
                                                     <Label>Ramps</Label>

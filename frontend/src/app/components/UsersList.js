@@ -19,7 +19,7 @@ class UsersList extends Component {
         };
     }
 
-    getUserList=()=>{
+    getUserList = () => {
         UserService.getUserList()
             .then(response => {
                 this.setState({
@@ -59,22 +59,22 @@ class UsersList extends Component {
             () => this.setState({userList: this.state.userList.filter(user => user.id !== id)})
         );
 
-    handleClose = (action, user) => {
-        switch (action) {
-            case "A": {
-                const userList = [...this.state.userList];
-                userList.push(user);
-                this.setState({show: false, userList});
-            }
-                break;
-            case "U":
-                const userList = this.state.userList.map(el => el.id === user.id ? user : el);
-                this.setState({show: false, userList, editedId: null});
-                break;
-            default:
-                this.setState({show: false, editedId: null});
-                break;
-        }
+    handleClose = () => {
+        UserService.getUserList()
+            .then(response => {
+                this.setState({
+                    userList: response.data,
+                    show: false,
+                    editedId: null
+                })
+            }, error => {
+                console.log(error);
+                this.setState({
+                    error: error.toString(),
+                    show: false,
+                    editedId: null
+                });
+            });
     }
 
     render() {
@@ -120,7 +120,7 @@ class UsersList extends Component {
                                                     <td className="text-center">{el.surname}</td>
                                                     <td className="text-center">{el.name}</td>
                                                     <td className="text-center">{el.patronymic}</td>
-                                                    <td className="text-center">{el.roles.map(el=>el.name_eng).join(", ")}</td>
+                                                    <td className="text-center">{el.roles.map(el => el.name_eng).join(", ")}</td>
                                                     {this.state.isEditable && <td className="text-center">
                                                         <Button variant="primary"
                                                                 onClick={() => this.showEditUser("U", el.id)}>Edit</Button>

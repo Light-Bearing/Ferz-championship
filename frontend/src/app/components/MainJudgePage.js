@@ -49,7 +49,7 @@ class MainJudgePage extends Component {
                     {
                         this.state.riderList ? (
                             <div style={{marginTop: "20px"}}>
-                                <Alert variant="info">
+                                <Alert variant="info" style={{height:"87vh"}}>
                                     <Form inline>
                                         <FormGroup>
                                             <Label style={{marginRight: "10px"}}>Rider:</Label>

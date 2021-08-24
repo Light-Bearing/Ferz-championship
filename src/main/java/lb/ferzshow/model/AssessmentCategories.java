@@ -14,11 +14,13 @@ import java.io.Serializable;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 public class AssessmentCategories extends BaseEntity implements Serializable {
-    @Column(name = "title", nullable = false)
+    @Column(name = "name_eng", nullable = false)
     @NotEmpty
     @Size(max = 128)
-    private String title;
+    private String nameEng;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    private Championship championship;
+    @Column(name = "name_rus", nullable = false)
+    @NotEmpty
+    @Size(max = 128)
+    private String nameRus;
 }

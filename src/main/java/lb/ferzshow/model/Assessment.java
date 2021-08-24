@@ -18,7 +18,7 @@ import java.io.Serializable;
 @AllArgsConstructor
 public class Assessment extends BaseEntity implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
-    private User judje;
+    private User judge;
     @ManyToOne(fetch = FetchType.LAZY)
     private AssessmentCategories category;
     @ManyToOne(fetch = FetchType.LAZY)
