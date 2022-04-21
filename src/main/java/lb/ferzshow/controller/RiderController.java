@@ -1,6 +1,6 @@
 package lb.ferzshow.controller;
 
-import lb.ferzshow.model.Rider;
+import lb.ferzshow.entity.Rider;
 import lb.ferzshow.repository.RiderRepository;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;

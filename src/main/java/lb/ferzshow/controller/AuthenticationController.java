@@ -1,13 +1,11 @@
 package lb.ferzshow.controller;
 
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import lb.ferzshow.message.request.*;
 import lb.ferzshow.message.response.JwtResponse;
 import lb.ferzshow.message.response.ResponseMessage;
-import lb.ferzshow.model.Role;
-import lb.ferzshow.model.RoleName;
-import lb.ferzshow.model.User;
+import lb.ferzshow.entity.Role;
+import lb.ferzshow.entity.User;
 import lb.ferzshow.repository.RoleRepository;
 import lb.ferzshow.repository.UserRepository;
 import lb.ferzshow.security.jwt.JwtProvider;
@@ -24,13 +22,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.EntityNotFoundException;
 import javax.validation.Valid;
-import java.nio.file.attribute.UserPrincipal;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Optional;
-import java.util.Set;
 
 @CrossOrigin(origins = {"http://localhost:3000", "http://localhost:8080"}, maxAge = 3600)
 @RestController

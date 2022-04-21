@@ -1,7 +1,7 @@
 package lb.ferzshow.message.request;
 
-import lb.ferzshow.model.Role;
-import lb.ferzshow.model.User;
+import lb.ferzshow.entity.Role;
+import lb.ferzshow.entity.User;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;
@@ -9,7 +9,6 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 @Data

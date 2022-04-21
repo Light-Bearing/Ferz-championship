@@ -1,7 +1,7 @@
 package lb.ferzshow.message.request;
 
-import lb.ferzshow.model.Role;
-import lb.ferzshow.model.User;
+import lb.ferzshow.entity.Role;
+import lb.ferzshow.entity.User;
 import lombok.Data;
 
 import javax.validation.constraints.NotBlank;

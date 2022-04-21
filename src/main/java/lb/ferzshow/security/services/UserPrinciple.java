@@ -1,7 +1,7 @@
 package lb.ferzshow.security.services;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import lb.ferzshow.model.User;
+import lb.ferzshow.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;

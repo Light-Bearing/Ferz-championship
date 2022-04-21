@@ -1,6 +1,6 @@
 package lb.ferzshow.security.services;
 
-import lb.ferzshow.model.User;
+import lb.ferzshow.entity.User;
 import lb.ferzshow.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;

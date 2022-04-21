@@ -1,6 +1,6 @@
 package lb.ferzshow.repository;
 
-import lb.ferzshow.model.Rider;
+import lb.ferzshow.entity.Rider;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.transaction.annotation.Transactional;
 

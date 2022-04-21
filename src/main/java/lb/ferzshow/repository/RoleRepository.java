@@ -1,7 +1,7 @@
 package lb.ferzshow.repository;
 
-import lb.ferzshow.model.Role;
-import lb.ferzshow.model.RoleName;
+import lb.ferzshow.entity.Role;
+import lb.ferzshow.entity.RoleName;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
