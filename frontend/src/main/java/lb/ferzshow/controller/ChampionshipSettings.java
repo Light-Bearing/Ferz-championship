@@ -58,7 +58,7 @@ public class ChampionshipSettings {
 
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
-    public void setSettings(@RequestBody SettingsChampionship settings) {
+    public void setSettings(@RequestBody ) {
 
 
     }

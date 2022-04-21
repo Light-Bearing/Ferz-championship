@@ -1,6 +1,6 @@
 package lb.ferzshow.controller;
 
-import lb.ferzshow.entity.Championship;
+import lb.ferzshow.model.Championship;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 

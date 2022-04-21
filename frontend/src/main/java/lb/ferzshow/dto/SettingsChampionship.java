@@ -19,4 +19,5 @@ public class SettingsChampionship {
     private List<User> mainJudges;
     private List<User> judges;
 
+//    private List<Judge> judges;
 }

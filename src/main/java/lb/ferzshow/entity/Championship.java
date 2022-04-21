@@ -31,30 +31,30 @@ public class Championship extends BaseEntity implements Serializable {
     @JoinColumn(name = "main_judge_id")
     private User mainJudge;
 
-    @OneToMany(
-            mappedBy = "championships_judge",
-            cascade= CascadeType.ALL,
-            orphanRemoval = true
-    )
+//    @OneToMany(
+//            mappedBy = "championships_judge",
+//            cascade= CascadeType.ALL,
+//            orphanRemoval = true
+//    )
+//
+//    private List<User> judgeList;
 
-    private List<User> judgeList;
-
-    @OneToMany(
-            mappedBy = "championship",
-            cascade= CascadeType.ALL,
-            orphanRemoval = true
-    )
-    private List<AssessmentCategories> assessmentCategories = new ArrayList<>();
-
-    public void addAssessmentCategories(AssessmentCategories categories){
-        assessmentCategories.add(categories);
-        //categories.setChampionship(this);
-
-    }
-
-    public void removeAssessmentCategories(AssessmentCategories categories){
-        assessmentCategories.remove(categories);
-       // categories.setChampionship(null);
-    }
+//    @OneToMany(
+//            mappedBy = "championship",
+//            cascade= CascadeType.ALL,
+//            orphanRemoval = true
+//    )
+//    private List<AssessmentCategories> assessmentCategories = new ArrayList<>();
+//
+//    public void addAssessmentCategories(AssessmentCategories categories){
+//        assessmentCategories.add(categories);
+//        //categories.setChampionship(this);
+//
+//    }
+//
+//    public void removeAssessmentCategories(AssessmentCategories categories){
+//        assessmentCategories.remove(categories);
+//       // categories.setChampionship(null);
+//    }
 }
 
