@@ -95,13 +95,19 @@ class AdminPage extends Component {
 
     handleChecked = (type, e) => {
         const array = JSON.parse(JSON.stringify(this.state[type]));
+        const arr = JSON.parse(JSON.stringify(this.state.content[type]));
+
         const elemId = Number(e.target.id);
         let elem = array.filter(el => el.id === elemId);
         if (elem.length > 0)
             elem[0].checked = e.target.checked;
         else
             array.push({id: elemId, checked: e.target.checked});
-        this.setState({[type]: array});
+
+        elem = arr.filter(el => el.id === elemId);
+        elem[0].checked = e.target.checked;
+
+        this.setState({[type]: array,content:{...this.state.content,[type]:arr}});
     }
 
     render() {
