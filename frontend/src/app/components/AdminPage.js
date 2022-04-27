@@ -12,6 +12,7 @@ class AdminPage extends Component {
             content: null,
             mainJudgeId: null,
             championshipId: -1,
+            title: "",
             judges: [],
             riders: [],
             error: ""
@@ -20,10 +21,11 @@ class AdminPage extends Component {
 
     componentDidMount() {
         SettingsService.getChampionshipList().then(res => {
-            console.log(res.data)
             this.setState({
                 content: res.data
             })
+            console.log(res.data)
+            this.getSettings(res.data.championshipList[0].id)
         }, error => {
             console.log(error);
             this.setState({
@@ -33,9 +35,11 @@ class AdminPage extends Component {
     }
 
     handleChangeChampionship = (e) => {
-        console.log(e.target.value)
+        this.getSettings(e.target.value)
+    }
 
-        SettingsService.getChampionship(e.target.value)
+    getSettings = (id) => {
+        SettingsService.getChampionship(id)
             .then(res => {
                 console.log(res.data)
                 const content = JSON.parse(JSON.stringify(this.state.content));
@@ -48,7 +52,8 @@ class AdminPage extends Component {
                     checked: res.data.ridersIdList.includes(rider.id)
                 }));
                 this.setState({
-                    championshipId: e.target.value,
+                    championshipId: id,
+                    title: res.data.title,
                     mainJudgeId: res.data.mainJudgeId,
                     judges: res.data.judges.map(el => ({...el, checked: el.checked ? el.checked : false})),
                     riders: res.data.riders.map(el => ({...el, checked: el.checked ? el.checked : false})),
@@ -126,9 +131,13 @@ class AdminPage extends Component {
                                                 </Form.Control>
                                             </FormGroup>
                                             <FormGroup>
-                                                <Label>Name championship</Label>
-                                                <Form.Control size="lg" type="text" placeholder="Title"
-                                                              onChange={this.handleChangeChampionshipTitle}/>
+                                                {Number(this.state.championshipId) === -1 &&
+                                                    <>
+                                                        <Label>Name championship</Label>
+                                                        <Form.Control size="lg" type="text" placeholder="Title"
+                                                                      value={this.state.title}
+                                                                      onChange={this.handleChangeChampionshipTitle}/>
+                                                    </>}
                                                 <Label>Main judge</Label>
                                                 <Form.Control
                                                     as="select"

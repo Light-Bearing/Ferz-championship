@@ -24,6 +24,7 @@ public class SettingsChampionship {
     public static SettingsChampionship getSettingsChampionship(Championship championship) {
         return SettingsChampionship.builder()
                 .id(championship.getId())
+                .title(championship.getTitle())
                 .mainJudgeId(championship.getMainJudge().getId())
                 .judges(championship.getJudgeList().stream().map(el->new CheckedUser(el.getId(),true)).collect(Collectors.toList()))
                 .riders(championship.getRiderList().stream().map(el->new CheckedUser(el.getId(),true)).collect(Collectors.toList()))
