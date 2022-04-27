@@ -21,7 +21,7 @@ public class ChampionshipSettings {
 
     @GetMapping
     @PreAuthorize("hasRole('ADMIN')")
-    public SettingsChampionship getSettings() {
+    public SettingsChampionship getChampionship() {
 //        return new SettingsChampionship().setName();
         return null;
     }
@@ -58,7 +58,7 @@ public class ChampionshipSettings {
 
     @PostMapping
     @PreAuthorize("hasRole('ADMIN')")
-    public void setSettings(@RequestBody ) {
+    public void setChampionship(@RequestBody ) {
 
 
     }

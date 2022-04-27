@@ -5,19 +5,22 @@ axios.interceptors.request.use(config => {
     const user = JSON.parse(localStorage.getItem('user'));
 
     if (user && user.token) {
-        const token = 'Bearer ' + user.token;
-        config.headers.Authorization = token;
+        config.headers.Authorization = 'Bearer ' + user.token;
     }
 
     return config;
 });
 
 class SettingsService {
-    async getSettings() {
-        return await axios.get("/settings");
+    async getChampionshipList(){
+        return await axios.get("/settings/list");
     }
 
-    async setSettings(settings) {
+    async getChampionship(id) {
+        return await axios.get("/settings/", {params: {id:Number(id)}});
+    }
+
+    async setChampionship(settings) {
         return await axios.post("/settings", settings);
     }
 
