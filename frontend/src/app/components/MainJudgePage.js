@@ -67,7 +67,7 @@ class MainJudgePage extends Component {
                                             </Form.Control>
                                         </FormGroup>
                                     </Form>
-                                    <div style={{"text-align":"center"}}>
+                                    <div style={{"display":"flex","justify-content":"center","align-items":"center","height":"100%"}}>
                                         <Button onClick={this.start} variant="danger" style={{
                                             fontSize: "100px",
                                             height: "300px",
