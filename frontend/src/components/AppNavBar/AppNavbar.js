@@ -1,7 +1,5 @@
 import React, {Component} from 'react';
 import {Collapse, Nav, Navbar, NavbarText, NavbarToggler, NavItem, NavLink} from 'reactstrap';
-import {withRouter} from 'react-router-dom';
-
 import AuthenticationService from '../../assets/services/AuthenticationService';
 
 class AppNavbar extends Component {
@@ -49,7 +47,7 @@ class AppNavbar extends Component {
 
     signOut = () => {
         AuthenticationService.signOut();
-        this.props.history.push('/');
+        this.props.history.push('/', { replace: true });
         window.location.reload();
     }
 

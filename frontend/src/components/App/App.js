@@ -14,18 +14,16 @@ function App() {
 
   return (
       <Routes>
-        <Route path='/' exact={true} element={<Login />}/>
-        <Route path='/riders' exact={true} element={<RidersList />}/>
-        <Route path='/profile' exact={true} element={<Profile />}/>
-        <Route path='/judge' exact={true} element={<JudgePage />}/>
-        <Route path='/main_judge' exact={true} element={<MainJudgePage />}/>
-        <Route path='/pm' exact={true} element={<ProjectManagerPage />}/>
-        <Route path='/admin' exact={true} element={<AdminPage />}/>
-        <Route path='/users' exact={true} element={<UsersList />}/>
-        <Route path='/signin' exact={true} element={<Login />}/>
+        <Route path='/'  element={<Login />}/>
+        <Route path='/riders' element={<RidersList />}/>
+        <Route path='/profile' element={<Profile />}/>
+        <Route path='/judge' element={<JudgePage />}/>
+        <Route path='/main_judge' element={<MainJudgePage />}/>
+        <Route path='/pm' element={<ProjectManagerPage />}/>
+        <Route path='/admin' element={<AdminPage />}/>
+        <Route path='/users' element={<UsersList />}/>
+        <Route path='/signin' element={<Login />}/>
         <Route path='*' element={<Navigate to={'/'} />} />
-
-
       </Routes>
   )
 }
