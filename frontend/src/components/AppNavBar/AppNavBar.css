@@ -1,0 +1,17 @@
+.link {
+    width: calc(100% / 6 );
+}
+
+.inactive {
+    color: cornflowerblue;
+    text-decoration: none;
+}
+
+.active {
+    color: white;
+    text-decoration: none;
+}
+
+.text {
+    max-width: 150px;;
+}

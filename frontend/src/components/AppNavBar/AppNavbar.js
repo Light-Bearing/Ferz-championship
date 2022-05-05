@@ -1,6 +1,9 @@
 import React, {Component} from 'react';
-import {Collapse, Nav, Navbar, NavbarText, NavbarToggler, NavItem, NavLink} from 'reactstrap';
+import {Collapse, Nav, Navbar, NavbarText, NavbarToggler, NavItem} from 'reactstrap';
 import AuthenticationService from '../../assets/services/AuthenticationService';
+import {Link, NavLink} from "react-router-dom";
+import './AppNavBar.css';
+
 
 class AppNavbar extends Component {
     constructor(props) {
@@ -57,45 +60,56 @@ class AppNavbar extends Component {
         });
     }
 
+
+
     render() {
-        return <Navbar color="dark" dark expand="md">
-            <Collapse isOpen={this.state.isOpen} navbar>
-                <Nav className="mr-auto">
-                    {this.state.showMainJudge && <NavLink href="/main_judge">Main judge</NavLink>}
-                    {this.state.showJudge && <NavLink href="/judge">Judge</NavLink>}
-                    {this.state.showAll && <NavLink href="/riders">Rider List</NavLink>}
-                    {this.state.showPM && <NavLink href="/pm">PM</NavLink>}
-                    {this.state.showAdmin && <NavLink href="/admin">Admin</NavLink>}
-                    {this.state.showAdmin && <NavLink href="/users">User list</NavLink>}
-                </Nav>
-            </Collapse>
-            {this.state.login && (
-                <Nav className="justify-content-center" style={{flex: 1}} navbar>
-                    <NavItem>
-                        <NavbarText>
-                            Signed in as: <a href="/profile">{this.state.surname + " " + this.state.name}</a>
-                        </NavbarText>
-                    </NavItem>
-                </Nav>)}
-            <NavbarToggler onClick={this.toggle}/>
-            <Collapse isOpen={this.state.isOpen} navbar>
-                {
-                    this.state.login ? (
-                        <Nav className="ml-auto" navbar>
-                            <NavItem>
-                                <NavLink href="#" onClick={this.signOut}>SignOut</NavLink>
-                            </NavItem>
-                        </Nav>
-                    ) : (
-                        <Nav className="ml-auto" navbar>
-                            <NavItem>
-                                <NavLink href="/signin">Signin</NavLink>
-                            </NavItem>
-                        </Nav>
-                    )
-                }
-            </Collapse>
-        </Navbar>;
+        return (
+            <nav className='container-fluid d-flex justify-content-between navbar navbar-dark bg-dark navbar-expand' >
+                <div id={1} className='d-flex align-items-center gap-3'>
+                    {this.state.showMainJudge && <NavLink className={({ isActive }) => (isActive ? 'active link' : 'inactive link')} to="/main_judge">Main judge</NavLink>}
+                    {this.state.showJudge && <NavLink className={({ isActive }) => (isActive ? 'active link' : 'inactive link')} to="/judge">Judge</NavLink>}
+                    {this.state.showAll && <NavLink className={({ isActive }) => (isActive ? 'active link' : 'inactive link')} to="/riders">Rider List</NavLink>}
+                    {this.state.showPM && <NavLink className={({ isActive }) => (isActive ? 'active link' : 'inactive link')} to="/pm">PM</NavLink>}
+                    {this.state.showAdmin && <NavLink className={({ isActive }) => (isActive ? 'active link' : 'inactive link')} to="/admin">Admin</NavLink>}
+                    {this.state.showAdmin && <NavLink className={({ isActive }) => (isActive ? 'active link' : 'inactive link')} to="/users">User list</NavLink>}
+                </div>
+                <div id={2}>
+                    {this.state.login && (
+                        <div className='navbar d-flex justify-content-center '>
+                            <p className='text-light m-0 text'>
+                                Signed in as: <Link to="/profile">{this.state.surname + " " + this.state.name}</Link>
+                            </p>
+                        </div>
+                    )}
+                </div>
+                <div id={3}>
+                    <Collapse isOpen={this.state.isOpen} navbar>
+                        {
+                            this.state.login ? (
+                                <button className='btn btn-md btn-danger' onClick={this.signOut}>SignOut</button>
+                            ) : (
+                                <Nav className="ml-auto" navbar>
+                                    <button className='btn btn-lg btn-danger'>
+                                        <NavLink to="/signin">Signin</NavLink>
+                                    </button>
+                                </Nav>
+                            )
+                        }
+                    </Collapse>
+                </div>
+
+
+
+
+                <NavbarToggler onClick={this.toggle}/>
+                <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#navbarToggleExternalContent" aria-controls="navbarToggleContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span className="navbar-toggler-icon"></span>
+                </button>
+
+            </nav>
+        );
     }
 }
 

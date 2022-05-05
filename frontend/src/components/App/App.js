@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {Routes, Route, Navigate} from "react-router";
 import './App.css';
 import RidersList from '../RidersList/RidersList';
@@ -11,7 +11,6 @@ import MainJudgePage from '../MainJudgePage/MainJudgePage';
 import UsersList from "../UserList/UsersList";
 
 function App() {
-
   return (
       <Routes>
         <Route path='/'  element={<Login />}/>
