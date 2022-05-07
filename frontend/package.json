@@ -44,6 +44,7 @@
     ]
   },
   "devDependencies": {
-    "prop-types": "^15.7.2"
+    "prop-types": "^15.7.2",
+    "react-star-ratings": "^2.3.0"
   }
 }
