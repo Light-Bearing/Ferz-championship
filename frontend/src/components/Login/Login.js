@@ -52,7 +52,7 @@ const Login = () => {
                 <form className='form' onSubmit={(e) => handleSubmit(e)}>
                     <h1 className='text-center mb-4'>Russian Motocross Freestyle Championship</h1>
                     <div>
-                        <label for="username" className='col-form-label pt-0'><strong>Username</strong></label>
+                        <label htmlFor="username" className='col-form-label pt-0'><strong>Username</strong></label>
                         <div className="input-group mb-2">
                             <input autoFocus
                                    type="text"
@@ -67,7 +67,7 @@ const Login = () => {
                         </div>
                     </div>
                     <div>
-                        <label for="password" className='col-form-label pt-0'><strong>Password</strong></label>
+                        <label htmlFor="password" className='col-form-label pt-0'><strong>Password</strong></label>
                         <div className='input-group mb-2'>
                             <input type="password"
                                    name="password"

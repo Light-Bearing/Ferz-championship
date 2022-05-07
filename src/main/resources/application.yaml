@@ -16,6 +16,7 @@ spring:
     #tcp: jdbc:h2:tcp://localhost:9092/mem:ferz
     #Absolute
     url: jdbc:h2:file:D:/db/ferz
+#    url: jdbc:h2:file:./ferz
     #tcp: jdbc:h2:tcp://localhost:9092/D:/db/ferz
     # Relative
     #url: jdbc:h2:./db/ferz
