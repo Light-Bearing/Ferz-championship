@@ -1,0 +1,19 @@
+.inactive {
+    color: cornflowerblue;
+    text-decoration: none;
+}
+
+.active {
+    color: white;
+    text-decoration: none;
+}
+
+.text {
+    max-width: 150px;;
+}
+
+.sticky {
+    position: sticky;
+    top: 0;
+    z-index: 10000;
+}
