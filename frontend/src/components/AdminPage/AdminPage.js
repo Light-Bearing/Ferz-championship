@@ -1,7 +1,7 @@
 import AppNavbar from '../AppNavBar/AppNavbar';
 import React, {Component} from 'react';
 import {Alert, Container, FormGroup, Label} from 'reactstrap';
-import SettingsService from '../../assets/services/SettingsChampionship';
+import SettingsService from '../../services/SettingsChampionship';
 import {Button, Form, FormCheck, Tab, Tabs} from "react-bootstrap";
 
 class AdminPage extends Component {

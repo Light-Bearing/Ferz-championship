@@ -12,9 +12,9 @@ axios.interceptors.request.use(config => {
     return config;
 });
 
-class BackendService {
-    async getUserBoard() {
-        return await axios.get("/api/test/judge");
+class JudgeService {
+    async setJudgeRating(param) {
+        return await axios.post("/api/judge",param);
     }
 
     async getPmBoard() {
@@ -30,4 +30,4 @@ class BackendService {
     }
 }
 
-export default new BackendService();
+export default new JudgeService();

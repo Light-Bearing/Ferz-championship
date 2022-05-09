@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import AuthenticationService from '../../assets/services/AuthenticationService';
+import AuthenticationService from '../../services/AuthenticationService';
 import {Link, NavLink} from "react-router-dom";
 import './AppNavBar.css';
 import {useNavigate} from "react-router";
@@ -48,9 +48,9 @@ function AppNavbar() {
         window.location.reload();
     }
 
-    const toggle = () => {
-        setState({isOpen: !state.isOpen});
-    }
+    // const toggle = () => {
+    //     setState({isOpen: !state.isOpen});
+    // }
 
     return (
         <nav className='container-fluid d-flex justify-content-between navbar navbar-dark bg-dark navbar-expand sticky' >

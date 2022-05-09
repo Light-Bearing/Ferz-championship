@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom';
 import {Button, Container} from 'reactstrap';
 import {Alert} from "react-bootstrap"
 
-import AuthenticationService from '../../assets/services/AuthenticationService';
+import AuthenticationService from '../../services/AuthenticationService';
 
 class Profile extends Component {
 

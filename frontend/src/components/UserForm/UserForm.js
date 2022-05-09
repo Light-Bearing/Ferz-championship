@@ -2,8 +2,8 @@ import React, {Component} from 'react';
 import {Button, Container, Form, FormGroup, Input, Label} from 'reactstrap';
 import {Alert, FormControl, InputGroup, Modal} from "react-bootstrap"
 
-import Authentication from '../../assets/services/AuthenticationService'
-import UserService from "../../assets/services/UserService";
+import Authentication from '../../services/AuthenticationService'
+import UserService from "../../services/UserService";
 
 
 const validEmailRegex = RegExp(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/);

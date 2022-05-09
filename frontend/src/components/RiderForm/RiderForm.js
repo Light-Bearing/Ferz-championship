@@ -1,7 +1,7 @@
 import React, {Component} from "react";
 import {Input, Label} from 'reactstrap';
 import {Alert, Button, Modal} from "react-bootstrap";
-import RiderService from "../../assets/services/RiderService";
+import RiderService from "../../services/RiderService";
 
 
 class RiderForm extends Component {

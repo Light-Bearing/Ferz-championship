@@ -1,8 +1,10 @@
 import React, {useEffect, useState} from 'react';
 import AppNavbar from '../AppNavBar/AppNavbar';
-import RiderService from "../../assets/services/RiderService";
+import RiderService from "../../services/RiderService";
 import StarRatings from 'react-star-ratings';
 import './JudgePage.css';
+import {Button} from "react-bootstrap";
+import JudgeService from "../../services/JudgeService";
 
 
 function JudgePage() {
@@ -34,18 +36,26 @@ function JudgePage() {
                 setContent(response.data)
                 // this.setState({riderList: response.data)})
                 setRiderList(riderList);
+                setRider(riderList[0])
             }, error => {
                 setError(error.toString());
             });
     }, [])
 
-    const handleChangeSelect = (e) => setRider({id: e.target.value});
+    const handleChangeSelect = (e) => setRider(riderList.filter(el => el.id === Number(e.target.value))[0]);
+
 
     const setNewRating = (count = 0, name) => {
-        console.log(count, name)
         setRating(prev => ({
             ...prev, [name]: count
         }))
+    }
+
+    const saveRank = (e)=>{
+        const userName = JSON.parse(localStorage.user).username
+        const sendObject = {userName,rider,
+            score:Object.keys(rating).map(el=>rating[el])}
+        JudgeService.setJudgeRating(sendObject).then(res=> console.log(res.data))
     }
 
     return (
@@ -68,7 +78,7 @@ function JudgePage() {
                                                     <option
                                                         className='dropdown-item'
                                                         value={rider.id}
-                                                        key={Math.random()}
+                                                        key={rider.id}
                                                     >
                                                         {rider.surname + " " + rider.name + (rider.patronymic ? " " + rider.patronymic : "")}
                                                     </option>
@@ -82,7 +92,6 @@ function JudgePage() {
                                                     <div className='d-flex fs-2 align-items-center'>
                                                         <span className='width'>{unit + "."}</span>
                                                         <div className='ms-2'>
-                                                            {/*{smArr.map(row => <span className='text-center align-middle block star'><span className='upper fz-5'>{row}</span></span>)}*/}
                                                             <StarRatings
                                                                 numberOfStars={starCount}
                                                                 rating={rating[unit + ""]}
@@ -92,7 +101,8 @@ function JudgePage() {
                                                                 starEmptyColor='#adb5bd'
                                                                 starHoverColor='rgba(224, 194, 75, 1)'
                                                                 starRatedColor='rgba(238, 164, 0, 1)'
-                                                                starSpacing="6px"
+                                                                starDimension="60px"
+                                                                starSpacing="0px"
                                                             />
                                                             <p style={{display: "inline"}}> {rating[unit + ""] - 1}</p>
                                                         </div>
@@ -104,8 +114,7 @@ function JudgePage() {
                                                  key={"doubleUp"}>
                                                 <div className='d-flex fs-2 align-items-center'>
                                                     <span className='width'>9.</span>
-                                                    <div className='ms-2' style={{width: 730}}>
-
+                                                    <div className='ms-2' style={{width: 620}}>
                                                         <StarRatings
                                                             numberOfStars={doubleUpStarsCount}
                                                             rating={rating["doubleUP"]}
@@ -115,16 +124,19 @@ function JudgePage() {
                                                             starEmptyColor='#adb5bd'
                                                             starHoverColor='rgba(224, 194, 75, 1)'
                                                             starRatedColor='rgba(238, 164, 0, 1)'
-                                                            starSpacing="8px"
+                                                            starDimension="80px"
+                                                            starSpacing="0px"
                                                         />
                                                     </div>
-                                                    <p style={{display: "inline"}}
+                                                    <p style={{display: "inline", "marginLeft": "50px"}}
                                                        className='width'>{rating["doubleUP"] - 1}</p>
                                                 </div>
                                             </div>
                                         </div>
                                     </fieldset>
                                 }
+                                <Button variant="primary"
+                                    onClick={saveRank}>Save</Button>
                             </form>
                         </div>
                     </div>

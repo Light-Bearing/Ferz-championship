@@ -2,7 +2,7 @@ import AppNavbar from '../AppNavBar/AppNavbar';
 import React, {Component} from 'react';
 import {Container, FormGroup, Label} from 'reactstrap';
 import {Alert, Button, Form} from "react-bootstrap"
-import RiderService from "../../assets/services/RiderService";
+import RiderService from "../../services/RiderService";
 
 
 class MainJudgePage extends Component {

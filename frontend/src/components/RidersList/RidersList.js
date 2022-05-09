@@ -1,9 +1,9 @@
 import React, {Component} from 'react';
 import AppNavbar from '../AppNavBar/AppNavbar';
 import {Alert, Container, Button} from "react-bootstrap";
-import AuthenticationService from "../../assets/services/AuthenticationService";
+import AuthenticationService from "../../services/AuthenticationService";
 import RiderForm from '../RiderForm/RiderForm';
-import RiderService from "../../assets/services/RiderService";
+import RiderService from "../../services/RiderService";
 
 class RidersList extends Component {
     constructor(props) {

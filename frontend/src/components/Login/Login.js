@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import AuthenticationService from "../../assets/services/AuthenticationService";
+import AuthenticationService from "../../services/AuthenticationService";
 import { useNavigate } from 'react-router'
 
 const Login = () => {

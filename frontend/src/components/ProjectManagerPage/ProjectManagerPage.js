@@ -1,7 +1,7 @@
 import AppNavbar from '../AppNavBar/AppNavbar';
 import React, {Component} from 'react';
 import {Alert, Container} from 'reactstrap';
-import BackendService from '../../assets/services/BackendService';
+import BackendService from '../../services/JudgeService';
 
 class ProjectManagerPage extends Component {
   constructor(props) {
