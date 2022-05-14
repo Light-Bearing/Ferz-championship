@@ -54,7 +54,8 @@ function JudgePage() {
     const saveRank = (e)=>{
         const userName = JSON.parse(localStorage.user).username
         const sendObject = {userName,rider,
-            score:Object.keys(rating).map(el=>rating[el])}
+            score:Object.keys(rating).map(el=>rating[el]-1)}
+
         JudgeService.setJudgeRating(sendObject).then(res=> console.log(res.data))
     }
 

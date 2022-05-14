@@ -14,7 +14,7 @@ axios.interceptors.request.use(config => {
 
 class JudgeService {
     async setJudgeRating(param) {
-        return await axios.post("/api/judge",param);
+        return await axios.post("/judge",param);
     }
 
     async getPmBoard() {
