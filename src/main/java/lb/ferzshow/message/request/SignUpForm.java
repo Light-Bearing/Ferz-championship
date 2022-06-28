@@ -57,7 +57,7 @@ public class SignUpForm {
                         .stream()
                         .filter(roleById::containsKey)
                         .map(roleById::get)
-                        .collect(Collectors.toList()))
+                        .collect(Collectors.toSet()))
                 .build();
     }
 

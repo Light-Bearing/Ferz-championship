@@ -4,7 +4,7 @@ spring:
     open-in-view: false
     generate-ddl: true
   hibernate:
-    ddl-auto: create-drop
+    ddl-auto: auto
   properties:
     hibernate:
       format_sql: true
@@ -15,7 +15,7 @@ spring:
     #url: jdbc:h2:mem:ferz
     #tcp: jdbc:h2:tcp://localhost:9092/mem:ferz
     #Absolute
-    url: jdbc:h2:file:D:/db/ferz
+    url: jdbc:h2:file:./ferz
 #    url: jdbc:h2:file:./ferz
     #tcp: jdbc:h2:tcp://localhost:9092/D:/db/ferz
     # Relative

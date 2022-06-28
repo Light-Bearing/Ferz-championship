@@ -14,15 +14,18 @@ public class Stopwatch {
     public void start() throws InterruptedException {
         for (long i = 1; i <= time; i++) {
             Thread.sleep(1000);
-            somthingDo(i);
+            somthingDo(String.valueOf(i));
         }
+        Thread.sleep(1000);
+        somthingDo("x2");
+        Thread.sleep(1000);
         for (long i = extraTime; i >= 0; i--) {
             Thread.sleep(1000);
-            somthingDo(i);
+            somthingDo(String.valueOf(i));
         }
     }
 
-    private void somthingDo(long i) {
+    private void somthingDo(String i) {
         System.out.println(i);
         writeTime.sendTime(i);
     }

@@ -77,7 +77,7 @@ public class AuthenticationController {
     }
 
     @PostMapping("/update_password")
-    @PreAuthorize("hasRole('ADMIN') OR principal.user.id == #request.id")
+//    @PreAuthorize("hasRole('ADMIN') OR principal.user.id == #request.id")
     @Operation(description = "Обновление пароля пользователя, доступно для пользователей с ролью ADMIN и для самих пользователей")
     public ResponseEntity<?> updatePassword(@Valid @RequestBody UpdatePasswordRequest request) {
         userRepository.findById(request.getId()).ifPresent(user -> {

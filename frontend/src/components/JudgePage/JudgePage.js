@@ -15,18 +15,12 @@ function JudgePage() {
     const [riderList, setRiderList] = useState([])
     const [rider, setRider] = useState({id: null, surname: "", name: "", patronymic: null})
     const [error, setError] = useState('')
-
+    const [doubleUpClick, setDoubleUpClick] = useState(false);
+    const [countJump, setCountJump] = useState([1]);
 
     const [rating, setRating] = useState({
         "doubleUP": 1,
         "1": 1,
-        "2": 1,
-        "3": 1,
-        "4": 1,
-        "5": 1,
-        "6": 1,
-        "7": 1,
-        "8": 1,
     });
 
     useEffect(() => {
@@ -46,17 +40,36 @@ function JudgePage() {
 
 
     const setNewRating = (count = 0, name) => {
+        const c = [...countJump];
+        if (!doubleUpClick) {
+            if (name === "doubleUP") {
+                c.pop()
+                setDoubleUpClick(true);
+            }
+        }
+        if (!doubleUpClick && c.length <= name) {
+            c.push(c.length + 1);
+            setCountJump(c);
+            setRating(prev => ({
+                ...prev,
+                [name]: count,
+                [name + 1]: 0
+            }))
+        }
+        console.log(name, count, c)
         setRating(prev => ({
             ...prev, [name]: count
         }))
     }
 
-    const saveRank = (e)=>{
+    const saveRank = (e) => {
         const userName = JSON.parse(localStorage.user).username
-        const sendObject = {userName,rider,
-            score:Object.keys(rating).map(el=>rating[el]-1)}
+        const sendObject = {
+            userName, rider,
+            score: Object.keys(rating).map(el => rating[el] - 1)
+        }
 
-        JudgeService.setJudgeRating(sendObject).then(res=> console.log(res.data))
+        JudgeService.setJudgeRating(sendObject).then(res => console.log(res.data))
     }
 
     return (
@@ -88,10 +101,10 @@ function JudgePage() {
                                         </label>
                                         <div className='container-fluid mt-5'>
                                             <h3 className='fs-3'>Score the trick:</h3>
-                                            {[1, 2, 3, 4, 5, 6, 7, 8].map((unit, idx) =>
+                                            {countJump.map((unit, idx) =>
                                                 <div className='d-flex gap-4 mt-3 justify-content-lg-start' key={idx}>
                                                     <div className='d-flex fs-2 align-items-center'>
-                                                        <span className='width'>{unit + "."}</span>
+                                                        <span className='width'>{idx + 1 + "."}</span>
                                                         <div className='ms-2'>
                                                             <StarRatings
                                                                 numberOfStars={starCount}
@@ -105,7 +118,10 @@ function JudgePage() {
                                                                 starDimension="60px"
                                                                 starSpacing="0px"
                                                             />
-                                                            <p style={{display: "inline"}}> {rating[unit + ""] - 1}</p>
+                                                            <p style={{display: "inline"}}> {rating[unit + ""] - 1} </p>
+                                                            <Button variant={"danger"}>bad</Button>
+                                                            <Button variant={"warning"}>nice</Button>
+                                                            <Button variant={"success"}>good</Button>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -131,13 +147,21 @@ function JudgePage() {
                                                     </div>
                                                     <p style={{display: "inline", "marginLeft": "50px"}}
                                                        className='width'>{rating["doubleUP"] - 1}</p>
+                                                    <div>
+                                                        <div>
+                                                            <Button variant={"danger"}>bad</Button>
+                                                            <Button variant={"warning"}>nice</Button>
+                                                            <Button variant={"success"}>good</Button>
+                                                        </div>
+                                                        <Button> No double up</Button>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </fieldset>
                                 }
                                 <Button variant="primary"
-                                    onClick={saveRank}>Save</Button>
+                                        onClick={saveRank}>Save</Button>
                             </form>
                         </div>
                     </div>

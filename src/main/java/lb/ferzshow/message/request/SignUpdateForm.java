@@ -53,7 +53,7 @@ public class SignUpdateForm {
                         .stream()
                         .filter(roleById::containsKey)
                         .map(roleById::get)
-                        .collect(Collectors.toList()))
+                        .collect(Collectors.toSet()))
                 .build();
     }
 }

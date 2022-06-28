@@ -2,6 +2,7 @@ package lb.ferzshow.entity;
 
 
 import lombok.*;
+import lombok.experimental.SuperBuilder;
 import org.hibernate.annotations.Cascade;
 import org.hibernate.annotations.CascadeType;
 import org.springframework.util.StringUtils;
@@ -28,6 +29,7 @@ import java.util.Set;
 @Setter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Builder(toBuilder = true)
+//@SuperBuilder
 @AllArgsConstructor
 @ToString(callSuper = true, exclude = {"password"})
 public class User extends BaseEntity implements Serializable {
@@ -64,7 +66,8 @@ public class User extends BaseEntity implements Serializable {
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     @Cascade({CascadeType.MERGE})
-    @Singular
+//    @Singular
+    @Builder.Default
     private Set<Role> roles = new HashSet<>();
 
     public User(String email, String username, String surname, String name, String patronymic, String password) {
