@@ -39,30 +39,32 @@ function JudgePage() {
     const handleChangeSelect = (e) => setRider(riderList.filter(el => el.id === Number(e.target.value))[0]);
 
 
-    const setNewRating = (count = 0, name) => {
-        const c = [...countJump];
+    const setNewRating = (count = 0, jumpNum) => {
+        const jumpRanks = [...countJump];
         if (!doubleUpClick) {
-            if (name === "doubleUP") {
-                c.pop()
+            if (jumpNum === "doubleUP") {
+                jumpRanks.pop()
                 setDoubleUpClick(true);
             }
-        }
-        if (!doubleUpClick && c.length <= name) {
-            c.push(c.length + 1);
-            setCountJump(c);
+            if (jumpRanks.length <= jumpNum) {
+                jumpRanks.push(jumpRanks.length + 1);
+                setCountJump(jumpRanks);
+                setRating(prev => ({
+                    ...prev,
+                    [jumpNum]: count,
+                    [(1+Number(jumpNum))  + ""]: 1
+                }))
+            }
+        } else {
+
             setRating(prev => ({
-                ...prev,
-                [name]: count,
-                [name + 1]: 0
+                ...prev, [jumpNum]: count
             }))
         }
-        console.log(name, count, c)
-        setRating(prev => ({
-            ...prev, [name]: count
-        }))
+        console.log(jumpNum, count, jumpRanks, rating)
     }
 
-    const saveRank = (e) => {
+    const saveRank = () => {
         const userName = JSON.parse(localStorage.user).username
         const sendObject = {
             userName, rider,
@@ -101,15 +103,15 @@ function JudgePage() {
                                         </label>
                                         <div className='container-fluid mt-5'>
                                             <h3 className='fs-3'>Score the trick:</h3>
-                                            {countJump.map((unit, idx) =>
+                                            {countJump.map((jumpNumber, idx) =>
                                                 <div className='d-flex gap-4 mt-3 justify-content-lg-start' key={idx}>
                                                     <div className='d-flex fs-2 align-items-center'>
                                                         <span className='width'>{idx + 1 + "."}</span>
                                                         <div className='ms-2'>
                                                             <StarRatings
                                                                 numberOfStars={starCount}
-                                                                rating={rating[unit + ""]}
-                                                                name={unit + ""}
+                                                                rating={rating[jumpNumber + ""]}
+                                                                name={jumpNumber + ""}
                                                                 ignoreInlineStyles={false}
                                                                 changeRating={setNewRating}
                                                                 starEmptyColor='#adb5bd'
@@ -118,7 +120,7 @@ function JudgePage() {
                                                                 starDimension="60px"
                                                                 starSpacing="0px"
                                                             />
-                                                            <p style={{display: "inline"}}> {rating[unit + ""] - 1} </p>
+                                                            <p style={{display: "inline"}}> {rating[jumpNumber + ""] - 1} </p>
                                                             <Button variant={"danger"}>bad</Button>
                                                             <Button variant={"warning"}>nice</Button>
                                                             <Button variant={"success"}>good</Button>
@@ -130,7 +132,7 @@ function JudgePage() {
                                             <div className='d-flex gap-4 mt-3 justify-content-lg-start'
                                                  key={"doubleUp"}>
                                                 <div className='d-flex fs-2 align-items-center'>
-                                                    <span className='width'>9.</span>
+                                                    <span className='width'>{countJump.length + 1 + "."}</span>
                                                     <div className='ms-2' style={{width: 620}}>
                                                         <StarRatings
                                                             numberOfStars={doubleUpStarsCount}
